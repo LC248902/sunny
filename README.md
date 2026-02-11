@@ -28,6 +28,16 @@ Crucially, MedGemma is not providing a diagnosis, more so acting as an optional 
 
 Extension: MedASR could later be integrated to allow voice-to-text notes for tracking or report discussing steps. For example, MedASR could transcribe a discussion between a patient and a dermatologist about their current review (the Review tab could have a voice recording feature which saves audio and attaches it to a particular review).
 
+## Video ideas
+
+There is a required 3 minute video to be submitted alongside the code and writeup materials.
+
+For the video, my idea so far is: 
+
+* Minute 1 - Introduction to the problem 
+* Minute 2 - Discussing current landscape with healthcare professional
+* Minute 3 - Benefits and features of Sunny and how it addresses the problem and is a step in the right direction
+
 ### TK - Problem
 
 ### TK - Science
