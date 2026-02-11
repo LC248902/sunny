@@ -45,6 +45,13 @@ Extension: MedASR could later be integrated to allow voice-to-text notes for tra
 
 ## Log
 
+* **11 Feb 2026** - Booked a skin check appointment at a local skin cancer clinic to get literal "skin the game".
+    * Called a practice to see if any skin cancer doctors might be available to talk to. Will follow up with email.
+    * Collected 100x photos of sunscreens (front and back) for potential fine-tuning of MedGemma to extract details from sunscreens (current base version of MedGemma does a good job of avoiding images which aren't specific health-related).
+    * Began reading through Australia's skin cancer report card for 2025 and taking notes to weave it into the overall narative of Sunny.
+    * Got initial designs for "Spot" the Sunny mascot (a cute Quokka!!).
+    * Emailed a skin cancer centre manager for request to speak with a doctor about our project.
+
 * **10 Feb 2026** - Called UQ dermatology office and Prof Soyer is currently away, however, he may reply to emails whilst on holidays. They said not many other people there to talk to. Will try contacting Cancer Council next.
     * Emailed another researcher based at UQ for potential interview questioning.
     * Got [MedASR](https://huggingface.co/google/medasr) (Medical Automatic Speech Recognition) running on device. This is quite a fast model (about 77-100x real-time factor on-device). See notes below.
