@@ -34,8 +34,8 @@ There is a required 3 minute video to be submitted alongside the code and writeu
 
 For the video, my idea so far is: 
 
-* Minute 1 - Introduction to the problem 
-* Minute 2 - Discussing current landscape with healthcare professional
+* Minute 1 - Introduction to the problem - this could be interviewing strangers with questions related to skin cancer to frame the problem
+* Minute 2 - Discussing current landscape with healthcare professional 
 * Minute 3 - Benefits and features of Sunny and how it addresses the problem and is a step in the right direction
 
 ### TK - Problem
@@ -48,12 +48,29 @@ For the video, my idea so far is:
 
 ## Next
 
-* Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
-* Investigate the SLICE-3D dataset and see if this can be integrated into what we're making - https://challenge2024.isic-archive.com/
-* Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
-* Contact another expert to get their advice on skin cancer + prevention + new technologies entering the field and how they're shaping dermatology.
+* IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
+    * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
+* ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
+    * Done - many relavant points to our cause, especially costs, pros of early detection and a future avenue for ongoing support for patients who have been diagnosed with skin cancer but aren't sure what to do next, this seemed to be one of the biggest gaps in the report (ongoing support for life after diagnosis is minimal)
+* ✅ Investigate the SLICE-3D dataset and see if this can be integrated into what we're making - https://challenge2024.isic-archive.com/
+    * Done - using 1000 of these (they are quite low quality) for fine-tuning MedGemma 
+* ✅ Contact another expert to get their advice on skin cancer + prevention + new technologies entering the field and how they're shaping dermatology.
+    * Done - reached out to 3x experts/doctors so far but have yet to hear back, if this doesn't happen we may benchmark it and try another route 
 
 ## Log
+
+* **12 Feb 2026** - Going to fine-tune MedGemma-1.5 to be able to extract details from sunscreen packaging as well as extract details from dermatology photos. This will better align the model with our app's use cases.
+    * Dataset to create: ~100 sunscreen photos with front and back extractions + ~1000 skin images with descriptions - these will be labelled with `gemini-3-flash-preview` and then distilled into MedGemma (hopefully this works)
+        * Skin images come from [ISIC-2024 permissive license images](https://challenge2024.isic-archive.com/) and are a combined sample of: all malignant samples (294), all ideterminate samples (100), random benign samples to make it up to 1000 (606)
+        * **Note:** Many of the images are quite low resolution... so might be hard to get a decent extraction from them. This may not translate well to on-device photos. Regardless, we will try to fine-tune and deploy a model! [Genchi genbutsu](https://en.wikipedia.org/wiki/Genchi_Genbutsu): Always test in the actual use case!
+    * Going to save the dataset to Hugging Face with a simple format of "skin extract" + image -> skin output or "sunscreen extract" + image -> sunscreen output
+        * I'll then fine-tune MedGemma-1.5 to reproduce these outputs and we'll put them in the app 
+    * Haven't heard back from any emails to dermatologists or doctors, this is okay and understandable, might just hit the streets and ask strangers for input:
+        * "What do you think is the most common cancer in Australia?"
+        * "Which cancer do you think costs the most to treat in Australia?"
+        * "What percentage of skin cancers are discoverd by the patient themselves or their partner?"
+        * "When was your last skin check?" -> "In an ideal world, how often would you check?" 
+        * "What's your barrier to entry for skin checking?"
 
 * **11 Feb 2026** - Booked a skin check appointment at a local skin cancer clinic to get literal "skin the game".
     * Called a practice to see if any skin cancer doctors might be available to talk to. Will follow up with email.
