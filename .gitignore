@@ -1,0 +1,9 @@
+# Misc
+.env
+.DS_Store
+*DS_Store
+
+# Data
+data/ISIC-2024/*.csv
+data/ISIC-2024/ISIC-2024-Permissive_Training_Input/*
+data/sunscreen-photos/*
