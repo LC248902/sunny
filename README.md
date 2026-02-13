@@ -51,6 +51,7 @@ For the video, my idea so far is:
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
 * Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
+* Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
 * ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
     * Done - many relavant points to our cause, especially costs, pros of early detection and a future avenue for ongoing support for patients who have been diagnosed with skin cancer but aren't sure what to do next, this seemed to be one of the biggest gaps in the report (ongoing support for life after diagnosis is minimal)
 * ✅ Investigate the SLICE-3D dataset and see if this can be integrated into what we're making - https://challenge2024.isic-archive.com/
@@ -64,6 +65,10 @@ For the video, my idea so far is:
     * Going to continue with quantization. Still some hallucinations at 4bit... but will see what this model looks like when deployed. We should also note the sunscreen extraction was only perfomed on ~100 images, perhaps more are needed.
     * Good news, it seems like the cut LM part out -> quantize only LM -> reattach workflow kind of works (?), might be an avenue to explore further.
         * Need to move towards shipping something so time for quantization experiments may not just be open-ended.
+    * For now, focus on deploying `4-bit-gs32` (group size = 32) model and see how it goes in app.
+    * Next: 
+        * Possibly try DWQ quantization, however, this may be a bit too long to do.
+        * Shorten the sunscreen extract output to be even shorter? Less tokens = less chance to error.
 
 * **13 Feb 2026** - Running into issues with quantization, it seems to make the model quite brittle when we do a naive quantization (e.g. "affine", this is the default in `mlx_vlm`). 4-bit-gs32 (group size 32) doesn't work as well as 8-bit-gs32 but is a much smaller model. This lower size is required for effective on-device deployment. The build out of learned quantization methods doesn't seem as much for `mlx_vlm` as it is `mlx_lm`, see [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) for more.
     * The model works well in float16 but starts to get into an infinite loop of generation when in 4-bit. This is fine balance between performance and size. 
