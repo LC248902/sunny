@@ -50,6 +50,7 @@ For the video, my idea so far is:
 
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
+* Add examples of before and after of fine-tuning the model to see what it looks like 
 * ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
     * Done - many relavant points to our cause, especially costs, pros of early detection and a future avenue for ongoing support for patients who have been diagnosed with skin cancer but aren't sure what to do next, this seemed to be one of the biggest gaps in the report (ongoing support for life after diagnosis is minimal)
 * ✅ Investigate the SLICE-3D dataset and see if this can be integrated into what we're making - https://challenge2024.isic-archive.com/
@@ -59,12 +60,55 @@ For the video, my idea so far is:
 
 ## Log
 
+* **13 Feb 2026** - Running into issues with quantization, it seems to make the model quite brittle when we do a naive quantization (e.g. "affine", this is the default in `mlx_vlm`). 4-bit-gs32 (group size 32) doesn't work as well as 8-bit-gs32 but is a much smaller model. This lower size is required for effective on-device deployment. The build out of learned quantization methods doesn't seem as much for `mlx_vlm` as it is `mlx_lm`, see [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) for more.
+    * The model works well in float16 but starts to get into an infinite loop of generation when in 4-bit. This is fine balance between performance and size. 
+    * **Important:** Prompt order matters a lot too. The model was fine-tuned with <image><text> -> <text>. So this means when an image gets used, it should go *before* the text. If the <image> is placed after the text, underdesired generation outcomes can and will occur.
+    * Trying an experiment to separate the LM from the Vision Model as `mlx_lm` has better support for learned quantization. Will try [`mlx_lm.dynamic_quant`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md#dynamic-quantization) on *only* the LM weights and then merge those back with the vision model weights.
+        * Starting with `mlx_lm.dynamic_quant`, then will move onto [`mlx.dwq`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md#dwq) (distilled weight quantization) if it doesn't work...
+    * Quantization with `mlx_lm.dynamic_quant` took a while (Mac Mini M4 Pro, 64GB RAM):
+
+```
+(ai) daniel@Daniels-Mac-mini quant-experiments % mlx_lm.dynamic_quant \
+    --model ./medgemma-language-only \
+    --mlx-path ./medgemma-lm-dynquant \
+    --target-bpw 4.5 \
+    --low-bits 4 \
+    --high-bits 5
+Estimating sensitivities: 56it [1:19:25, 85.09s/it]                                                                                             
+[INFO] Quantized model with 4.502 bits per weight.
+Peak memory used: 58.109GB
+```
+
+    * There is a paper too which discusses using different quantization strategies for the different modalities of the model (see: https://openaccess.thecvf.com/content/CVPR2025/papers/Li_MBQ_Modality-Balanced_Quantization_for_Large_Vision-Language_Models_CVPR_2025_paper.pdf), for example, vision models may be more negatively influenced by quantization than text models and vice versa.
+    * Some good settings for the 4-bit-gs32 (this is with the default settings (`"affine"` or RTN - Round To Nearest quantization)) model seem to be: 
+
+```
+output = generate(
+    model, processor, prompt,
+    ["./data/sunscreen-test-1.jpeg"],
+    max_tokens=512,
+    temperature=0.7,
+    top_p=0.95,
+    repetition_penalty=1.2, 
+    # repetition_context_size=256, # not sure of how much this seems to influence our output
+    verbose=True
+)
+```
+
 * **12 Feb 2026** - Going to fine-tune MedGemma-1.5 to be able to extract details from sunscreen packaging as well as extract details from dermatology photos. This will better align the model with our app's use cases.
     * Dataset to create: ~100 sunscreen photos with front and back extractions + ~1000 skin images with descriptions - these will be labelled with `gemini-3-flash-preview` and then distilled into MedGemma (hopefully this works)
         * Skin images come from [ISIC-2024 permissive license images](https://challenge2024.isic-archive.com/) and are a combined sample of: all malignant samples (294), all ideterminate samples (100), random benign samples to make it up to 1000 (606)
         * **Note:** Many of the images are quite low resolution... so might be hard to get a decent extraction from them. This may not translate well to on-device photos. Regardless, we will try to fine-tune and deploy a model! [Genchi genbutsu](https://en.wikipedia.org/wiki/Genchi_Genbutsu): Always test in the actual use case!
     * Going to save the dataset to Hugging Face with a simple format of "skin extract" + image -> skin output or "sunscreen extract" + image -> sunscreen output
         * I'll then fine-tune MedGemma-1.5 to reproduce these outputs and we'll put them in the app 
+        * Dataset created! See: https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k 
+    * Started fine-tuning MedGemma-1.5 in Google Colab (using A100 GPU with 80GB of RAM, following the practice of freeze vision tower -> fine-tune LLM part)
+        * Fine-tuning done! See: https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune 
+        * **Note:** Fine-tuned on ~1100 samples for 3 epochs, vision backbone was frozen and the LLM was fully tuned. Could potentially look into a LORA in the future. See mlx_vlm's [LORA.md](https://github.com/Blaizzy/mlx-vlm/blob/main/mlx_vlm/LORA.MD) for more.
+        * Now to convert it to MLX (so we can run it on device), see: https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit 
+            * **Note:** Make sure to use `mlx_vlm convert` to ensure the vision model gets converted as well as the text model.
+        * Converted to MLX 4-bit, however noticing some degradation well deploying to on-device. The float16 model works well. 
+        * Going to investigate generation settings as well as if we can get learned quantization working.
     * Haven't heard back from any emails to dermatologists or doctors, this is okay and understandable, might just hit the streets and ask strangers for input:
         * "What do you think is the most common cancer in Australia?"
         * "Which cancer do you think costs the most to treat in Australia?"
