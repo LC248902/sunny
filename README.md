@@ -56,9 +56,13 @@ For the video, my idea so far is:
 
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
+* Get skin check in real life and compare it to before Sunny and after Sunny.
+* Start on `writeup.md` following Kaggle recommended structure.
 * Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
+    * This will be good to demo the fine-tuned model vs the non-fine-tuned model.
 * Read [*Economic evaluation of future skin cancer prevention in Australia*](https://pubmed.ncbi.nlm.nih.gov/28131778/)
-* Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
+* ✅ Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
+    * Done - Can now just use "sunscreen extract" and "skin extract" prompts with an image and get outputs, this vastly improves memory usage on device.
 * ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
     * Done - many relavant points to our cause, especially costs, pros of early detection and a future avenue for ongoing support for patients who have been diagnosed with skin cancer but aren't sure what to do next, this seemed to be one of the biggest gaps in the report (ongoing support for life after diagnosis is minimal)
 * ✅ Investigate the SLICE-3D dataset and see if this can be integrated into what we're making - https://challenge2024.isic-archive.com/
