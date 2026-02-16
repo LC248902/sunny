@@ -38,6 +38,12 @@ For the video, my idea so far is:
 * Minute 2 - Discussing current landscape with healthcare professional 
 * Minute 3 - Benefits and features of Sunny and how it addresses the problem and is a step in the right direction
 
+### Comparison
+
+* Compare a skin check with Sunny and without Sunny.
+    * With Sunny: structured, step by step, everything in one place
+    * Without Sunny: ad hoc, "did I do this place before?", "what did this region look like last time?"
+
 ### TK - Problem
 
 ### TK - Science
@@ -51,6 +57,7 @@ For the video, my idea so far is:
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
 * Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
+* Read [*Economic evaluation of future skin cancer prevention in Australia*](https://pubmed.ncbi.nlm.nih.gov/28131778/)
 * Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
 * ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
     * Done - many relavant points to our cause, especially costs, pros of early detection and a future avenue for ongoing support for patients who have been diagnosed with skin cancer but aren't sure what to do next, this seemed to be one of the biggest gaps in the report (ongoing support for life after diagnosis is minimal)
@@ -65,6 +72,26 @@ For the video, my idea so far is:
     * Ok looks like the SigLIP architecture isn't as well suited for the neural engine as the vision backbone in the FastVLM architecture. The SigLIP vision backbone has many attention ops where as the FastVLM is a large mixture of conv/attention = speedups on the neural engine. This looks like it would be a further avenue of research. For example, testing a different vision backbone to get similar results but faster TTFT.
     * [Gemma-3n](https://huggingface.co/google/gemma-3n-E4B) could be a nice middle ground here. It using a MobileNetV5 vision tower, so potentially that could be trained in a way similar to MedGemma to leverage the accelerated vision backbone on device.
         * Good news, the MobileNetV5 architecture can run entirely on the neural engine. This means there would potentially be an avenue for running the MobileNetV5 model as the vision encoder and then another model as the LLM, though this will likely require retraining of the MedGemma architecture. 
+    * Reading [Detection and Screening](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/detection-and-screening) doc from Cancer Council. 
+        * Cancer Council Australia recommends skin self-examination for those at elevated risk (over 40, outdoor workers, those with personal history of skin cancer). 
+        * Early detection through skin self-examination potentially reduces the risk of of advanced melanoma by 63% through early detection of thinner lesions.
+        * A Queensland study found nearly half (44%) of those with histologically confirmed melanoma detected the melanoma themselves.
+        * Characteristics of suspicious spots/moles are described by ABCDE (reference 4, 10):
+            * A = Asymmetry
+            * B = Border irregularity
+            * C = Colour variable (including surrounding coloured halo)
+            * D = Diameter > 6mm
+            * E = Evolving
+        * One US study did not recommend mass screening (2016, reference 15) due to insufficient evidence.
+            * However, a study by Aitken and colleagues (reference 16) has found that clinical whole-body skin examination leads to detection of melanoma tumours at an earlier stage (when the tumour is thinner) which in turn reduces mortality (reference 1). This study does not provide information on costs to the health system.
+        * Cancer Council Australia's current recommendation includes opportunistic screening and skin self-examination in place of routine population screening (reference 6).
+        * GPs (general practioners) are generally the first port of call for those with skin cancer. And they are increasingly treating them via surgical repairs.
+        * Dermatoscopy use greatly improves accuracy and sensitivity compared to naked eye for melanomas and BCC and SCC.
+        * Dermatologists have the lowest NNT (number needed to treat).
+            * Lower NNT = lower rate of misdiagnosis between benign lesions and melanomas excised, therefore signify reduced morbidity and healthcare costs.
+        * **Self-checking:** A 2017 survey by The Skin and Cancer Foundation found that of the 1,000 people surveyed, 70% of women and 64% of men self-check their skin for disease, including skin cancer (resource 14).
+        * **Sunny's angle:** we want to improve the momentum of self-examination by increasing the number of individuals who self-check themselves. As 44% is already quite high in terms of self-discovery. Potentially we could aid in this number getting higher which is not ideal when it comes to people actually finding they have cancer but if it means more people get it treated earlier than that's a good sign.    
+            * More specific: *We aim to increase the proportion of users who notice and act on change*.
 
 * **15 Feb 2026** - Researching outline for writeup/video. These are two of the major parts of the submission. My brother is working on the app and it's looking good. We have MedGemma (a fine-tuned version for Sunny) running on device + a good workflow for the overall app.
     * Next will be trying to optimize the model running on device. The FastVLM paper discusses running the vision encoder on the neural engine in CoreML (very fast) where as they run the LLM part on the GPU (this is good for token by token generation). Potentially we could do the same with MedGemma to split things up (e.g. run the SigLIP vision encoder on the neural engine and the Gemma 3 LLM on the GPU with MLX).
