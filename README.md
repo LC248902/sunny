@@ -61,6 +61,14 @@ For the video, my idea so far is:
 
 ## Log
 
+* **16 Feb 2026** - Experimenting running MedGemma as two parts on the iOS device: SigLIP vision encoder on the Neural Engine, LLM part running on GPU via MLX. Not sure how this will work but going to try anyway.
+    * Ok looks like the SigLIP architecture isn't as well suited for the neural engine as the vision backbone in the FastVLM architecture. The SigLIP vision backbone has many attention ops where as the FastVLM is a large mixture of conv/attention = speedups on the neural engine. This looks like it would be a further avenue of research. For example, testing a different vision backbone to get similar results but faster TTFT.
+    * [Gemma-3n](https://huggingface.co/google/gemma-3n-E4B) could be a nice middle ground here. It using a MobileNetV5 vision tower, so potentially that could be trained in a way similar to MedGemma to leverage the accelerated vision backbone on device.
+        * Good news, the MobileNetV5 architecture can run entirely on the neural engine. This means there would potentially be an avenue for running the MobileNetV5 model as the vision encoder and then another model as the LLM, though this will likely require retraining of the MedGemma architecture. 
+
+* **15 Feb 2026** - Researching outline for writeup/video. These are two of the major parts of the submission. My brother is working on the app and it's looking good. We have MedGemma (a fine-tuned version for Sunny) running on device + a good workflow for the overall app.
+    * Next will be trying to optimize the model running on device. The FastVLM paper discusses running the vision encoder on the neural engine in CoreML (very fast) where as they run the LLM part on the GPU (this is good for token by token generation). Potentially we could do the same with MedGemma to split things up (e.g. run the SigLIP vision encoder on the neural engine and the Gemma 3 LLM on the GPU with MLX).
+
 * **14 Feb 2026** - Off, Valentine's Day with my wife.
     * Going to continue with quantization. Still some hallucinations at 4bit... but will see what this model looks like when deployed. We should also note the sunscreen extraction was only perfomed on ~100 images, perhaps more are needed.
     * Good news, it seems like the cut LM part out -> quantize only LM -> reattach workflow kind of works (?), might be an avenue to explore further.
