@@ -56,11 +56,13 @@ For the video, my idea so far is:
 
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
-* Get skin check in real life and compare it to before Sunny and after Sunny.
-* Start on `writeup.md` following Kaggle recommended structure.
-* Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
+* IN PROGRESS: Start on `writeup.md` following Kaggle recommended structure.
+* Read: Australian Institute of Health and Welfare: [Health system spending on disease and injury in Australia 2023–24](https://www.aihw.gov.au/reports/health-welfare-expenditure/health-system-spending-disease-injury-aus-2023-24/contents/spending-on-disease-by-abod-conditions)
+* Evals: Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
     * This will be good to demo the fine-tuned model vs the non-fine-tuned model.
 * Read [*Economic evaluation of future skin cancer prevention in Australia*](https://pubmed.ncbi.nlm.nih.gov/28131778/)
+* ✅ Get skin check in real life and compare it to before Sunny and after Sunny.
+    * Done - Doctor mentioned: "Once a year skin checkup is good or anytime you notice a spot of concern, after all, you are the one who see's your skin the most." Also found a spot on my left toes I did not know about, said "You can take a photo of it yourself and check on it in a year but for now, it looks okay." This is the exact workflow Sunny is looking to accommodate. 
 * ✅ Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
     * Done - Can now just use "sunscreen extract" and "skin extract" prompts with an image and get outputs, this vastly improves memory usage on device.
 * ✅ Read Australia's national skin cancer report card - https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf 
@@ -71,6 +73,10 @@ For the video, my idea so far is:
     * Done - reached out to 3x experts/doctors so far but have yet to hear back, if this doesn't happen we may benchmark it and try another route 
 
 ## Log
+
+* **17 Feb 2026** - Started work on the `writeup.md`, this is an important part of the submission. Found a good resource which breaks down costs of cancers in Australia. Skin cancer was ~$2.5B in 2023/2024.
+    * Had a skin check at a local doctor, good news, nothing to worry about. Doctor suggested yearly is a good time to check, found a spot underneath my left toe I didn't know about and she said: "You can take a photo on your phone of the spot and check on it next year if you like.", that's the exact workflow Sunny is looking to handle.
+        * Doctor reiterated the importance of prevention: sun protection, clothing, sunscreen, avoiding harsh UV times if possible (not to worry doc, I'm a screen nerd).
 
 * **16 Feb 2026** - Experimenting running MedGemma as two parts on the iOS device: SigLIP vision encoder on the Neural Engine, LLM part running on GPU via MLX. Not sure how this will work but going to try anyway.
     * Ok looks like the SigLIP architecture isn't as well suited for the neural engine as the vision backbone in the FastVLM architecture. The SigLIP vision backbone has many attention ops where as the FastVLM is a large mixture of conv/attention = speedups on the neural engine. This looks like it would be a further avenue of research. For example, testing a different vision backbone to get similar results but faster TTFT.
