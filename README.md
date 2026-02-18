@@ -74,6 +74,11 @@ For the video, my idea so far is:
 
 ## Log
 
+* **18 Feb 2026** - Updated `writeup.md` to draft v3, starting to craft the narrative around Sunny and how it fits into the competition criteria. 
+    * Started cleaning up fine-tuning code for sharing.
+    * Will create a small demo of before/after fine-tuning as well.
+    * Priority is finish `writeup.md` ready for submission and cleanup arifacts to go along with it and then make a video.
+
 * **17 Feb 2026** - Started work on the `writeup.md`, this is an important part of the submission. Found a good resource which breaks down costs of cancers in Australia. Skin cancer was ~$2.5B in 2023/2024.
     * Had a skin check at a local doctor, good news, nothing to worry about. Doctor suggested yearly is a good time to check, found a spot underneath my left toe I didn't know about and she said: "You can take a photo on your phone of the spot and check on it next year if you like.", that's the exact workflow Sunny is looking to handle.
         * Doctor reiterated the importance of prevention: sun protection, clothing, sunscreen, avoiding harsh UV times if possible (not to worry doc, I'm a screen nerd).
