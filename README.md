@@ -32,7 +32,8 @@ TK - finish links to resources
 
 ## Notes
 
-* **Prompt order matters** - The has been trained in the format `<image>` + `<text>` → `<text>`. The image must come **before** the text in the prompt. This goes for the PyTorch version of the model as well as the MLX verison of the model.
+* **Prompt order matters** - The Sunny-MedGemma has been trained in the format `<image>` + `<text>` → `<text>`. The image must come **before** the text in the prompt. This goes for the PyTorch version of the model as well as the MLX verison of the model. Not using this order will likely result in undesirable outputs.
+* **No hard negatives** - The model has been trained on sunscreen and skin images, however, it has not been trained on images to refuse. For example, if you upload a photo of a dog, the model will still produce an output. A future fine-tuning run would introduce hard negative samples to guide the model to know what kind of images to not predict anything on.
 
 ## App Layout
 
@@ -135,8 +136,6 @@ Or for the MLX version:
 hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemma_mlx_readme.md README.md --repo-type model
 ```
 
-
-
 ## Next
 
 * IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
@@ -160,6 +159,9 @@ hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemm
 ## Log
 
 * **19 Feb 2026** - Finalizing fine-tuning notebook as well as preparing example documents for comparison of fine-tuned model vs base model. Will have the following resources uploaded by end of today: fine-tuning notebook, comparisons for base vs fine-tuned model, conversion script for fine-tuned model -> MLX.
+    * Added fine-tuning notebook.
+    * Updated README's for PyTorch + MLX Sunny-MedGemma's on HF.
+    * Collected comparison samples for original model vs fine-tuned model.
 
 * **18 Feb 2026** - Updated `writeup.md` to draft v3, starting to craft the narrative around Sunny and how it fits into the competition criteria. 
     * Started cleaning up fine-tuning code for sharing.
