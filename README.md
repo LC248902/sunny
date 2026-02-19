@@ -10,6 +10,10 @@ Rather than create a pure diagnostic play (research is not strong here from smar
 
 In essence our pitch is as much psychological as it is technological.
 
+## TK - Resources
+
+TK - Add links to different resources
+
 ## App Layout
 
 There will be three tabs: Track, Review, Map.
@@ -74,7 +78,7 @@ For the video, my idea so far is:
 
 ## Log
 
-* **19 Feb 2026** - Finalizing fine-tuning notebook as well as preparing example documents for comparison of fine-tuned model vs base model.
+* **19 Feb 2026** - Finalizing fine-tuning notebook as well as preparing example documents for comparison of fine-tuned model vs base model. Will have the following resources uploaded by end of today: fine-tuning notebook, comparisons for base vs fine-tuned model, conversion script for fine-tuned model -> MLX.
 
 * **18 Feb 2026** - Updated `writeup.md` to draft v3, starting to craft the narrative around Sunny and how it fits into the competition criteria. 
     * Started cleaning up fine-tuning code for sharing.
