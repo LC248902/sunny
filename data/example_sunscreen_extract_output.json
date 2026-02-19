@@ -1,0 +1,47 @@
+{
+    "side": "back",
+    "formula_type": "Chemical",
+    "data": {
+        "brand": "Pharmacy Health",
+        "product_name": "Everyday SPF50+ lotion",
+        "spf": 50,
+        "spectrum": true,
+        "water_resistance": "Not visible",
+        "regulatory_id": "Not visible",
+        "assumed_main_ingredient": "Octocrylene",
+        "active_ingredients": [
+            {
+                "name": "Homosalate",
+                "percentage": "6.0%",
+                "category": "Chemical"
+            },
+            {
+                "name": "Octocrylene",
+                "percentage": "8.0%",
+                "category": "Chemical"
+            },
+            {
+                "name": "Butyl Methoxydibenzoylmethane",
+                "percentage": "3.0%",
+                "category": "Chemical"
+            }
+        ],
+        "preservatives": [
+            "Phenoxyethanol"
+        ],
+        "claims": [
+            "SPF50+",
+            "UVA & UVB protection",
+            "Oxybenzone free",
+            "Octinoxate free",
+            "Reef friendly",
+            "Lightweight",
+            "Hydrating formula",
+            "Nourishing",
+            "Dermatologically tested"
+        ],
+        "application_timer": 120,
+        "storage_limit": 30,
+        "warnings": "Avoid contact with eyes and broken or damaged skin. If irritation occurs, rinse well with water, discontinue use immediately and seek medical advice if required. Do not expose young children to direct sunlight. Not suitable for children under the age of 6 months. Avoid prolonged exposure to the sun. Avoid contact with fabric as product may stain. Always wear protective clothing, hats and eyewear when exposed to the sun."
+    }
+}
