@@ -3,6 +3,13 @@
 .DS_Store
 *DS_Store
 
+# Models
+*/mlx_model/*
+mlx_model/* 
+mlx_model/
+models/*
+models/
+
 # Data
 data/ISIC-2024/*.csv
 data/ISIC-2024/ISIC-2024-Permissive_Training_Input/*
