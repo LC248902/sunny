@@ -10,9 +10,29 @@ Rather than create a pure diagnostic play (research is not strong here from smar
 
 In essence our pitch is as much psychological as it is technological.
 
+Sunny aims to fill the gap of a lacking nationwide screening solution in Australia.
+
+The intention of Sunny is to encourage more people to self-skin examine on a regular (e.g. yearly) basis. This means potentially discovering skin cancers earlier resulting in earlier treatment and in turn saving on costs and improving mortality rates.
+
+TK image - image of Sunny working
+
 ## TK - Resources
 
-TK - Add links to different resources
+TK - finish links to resources
+
+| Resource | Description | Link |
+|----------|-------------|------|
+| TK - Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | TK |
+| TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
+| TK - Video | Video overview of the Sunny project. | TK |
+| Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
+| Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
+| Sunny-MedGemma-PyTorch | Fine-tuned MedGemma specifically for Sunny's use case of extracting data from skin and sunscreen images. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune) |
+| Sunny-MedGemma-MLX | Fine-tuned MedGemma converted to MLX for deployment on iOS devices. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit) |
+
+## Notes
+
+* **Prompt order matters** - The has been trained in the format `<image>` + `<text>` → `<text>`. The image must come **before** the text in the prompt. This goes for the PyTorch version of the model as well as the MLX verison of the model.
 
 ## App Layout
 
@@ -48,13 +68,74 @@ For the video, my idea so far is:
     * With Sunny: structured, step by step, everything in one place
     * Without Sunny: ad hoc, "did I do this place before?", "what did this region look like last time?"
 
-### TK - Problem
+## Usage
 
-### TK - Science
+### Fine-tuning MedGemma
 
-### TK - Gap
+Please refer to the [fine-tuning notebook](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb). This contains a step by step process for going from dataset + base model -> fine-tuned model.
 
-### TK - Solution
+### MLX Model Conversion
+
+Once we've fine-tuned a model and saved it to the Hugging Face Hub, we can convert it to MLX so it can run on iOS.
+
+Installation:
+
+```
+pip install mlx-vlm huggingface_hub
+```
+
+Authentication:
+
+```
+hf auth login
+```
+
+Repo creation:
+
+```
+# (Optional) Pre-create the repo as private
+hf repo create sunny-medgemma-1.5-4b-finetune-mlx-4bit --repo-type model --private
+```
+
+Model conversion to MLX and uploading:
+
+```
+# Convert and upload
+mlx_vlm.convert \
+    --model mrdbourke/sunny-medgemma-1.5-4b-finetune \
+    -q \
+    --upload-repo mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit
+```
+
+### Hugging Face CLI
+
+Requires the [Hugging Face CLI](https://huggingface.co/docs/huggingface_hub/en/guides/cli) installed.
+
+Authenicate:
+
+```
+hf auth login
+```
+
+Upload a `README.md` file to a repo:
+
+```
+huggingface-cli upload <repo_id> <local_path> <path_in_repo> --repo-type <type>
+```
+
+For example Sunny-MedGemma PyTorch README file: 
+
+```
+hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune extras/sunny_medgemma_pytorch_readme.md README.md --repo-type model
+```
+
+Or for the MLX version:
+
+```
+hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemma_mlx_readme.md README.md --repo-type model
+```
+
+
 
 ## Next
 
