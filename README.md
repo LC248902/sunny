@@ -74,6 +74,8 @@ For the video, my idea so far is:
 
 ## Log
 
+* **19 Feb 2026** - Finalizing fine-tuning notebook as well as preparing example documents for comparison of fine-tuned model vs base model.
+
 * **18 Feb 2026** - Updated `writeup.md` to draft v3, starting to craft the narrative around Sunny and how it fits into the competition criteria. 
     * Started cleaning up fine-tuning code for sharing.
     * Will create a small demo of before/after fine-tuning as well.
