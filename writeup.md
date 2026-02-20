@@ -55,7 +55,7 @@ If discovered early, melanoma can often be treated in the community (e.g., via G
 
 However, if treatment has to move to hospital because melanoma is at a later stage, costs quickly ramp—reaching AU$37,729/year for Stage III (resectable) [^11] and around AU$100,725 in the first year for unresectable Stage III/IV disease in the latest Australian estimates [^8]. Australian modelling also reported three-year costs of AU$187,720 for unresectable Stage III/IV [^11].
 
-| Melanoma stage | Treatment setting (typical) | Cost basis | Cost (AU$) | Multiplier vs Stage 0 (AU$644) | Best source |
+| Melanoma stage | Treatment setting (typical) | Cost basis | Cost (AU$) | Multiplier vs Stage 0 (AU$644) | Source |
 |---|---|---:|---:|---:|---|
 | Stage 0 (melanoma in situ) | Community (often GP/skin clinic excision) | Mean first-year cost per patient | 644 | 1.0× | [^8] |
 | Stage I/II | Mostly community + specialist follow-up | Mean annual cost per patient | 1,681 | 2.6× | [^11] |
