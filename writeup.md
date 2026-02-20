@@ -21,9 +21,7 @@ TK image - header image
 * [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
 * Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
 
-## Problem Statement 
-
-### Disclaimers 
+## Disclaimers 
 
 * Sunny is not a diagnostic tool, rather a utility for people to track their own skin and discuss findings with their doctor. We agree with the Australian Cancer Council: 
 
@@ -31,7 +29,7 @@ TK image - header image
 
 * Sunny is targeted at *all* skin cancers, however the literature often reports on melanoma and keratinocyte cancers separately.
 
-### Problem Domain
+## Problem Domain
 
 Australia is known for its beaches and vast plains. Some poets even refer to it as the sunburnt country [^1].
 
@@ -87,7 +85,7 @@ Sunny transforms a vague "perform self-skin examinations" recommendation into a 
 
 TK image - sunny workflow in app (what does using it)
 
-### Impact Potential
+## Impact Potential
 
 Our vision is for Sunny to become the national standard for self-skin-examination (SSE). 
 
