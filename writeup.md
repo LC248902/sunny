@@ -128,7 +128,7 @@ TK image 03 - Sunny app workflow
 
 Due to the sensitive nature of skin photographs, using an API-based model solution was out of the question.
 
-All data within the Sunny app is passcode protected and never leaves the user’s device. 
+All data within the Sunny app is passcode protected and never leaves the user’s device unless explicitly shared with a doctor. 
 
 When a user takes a photo of their skin, Sunny-MedGemma generates a structured description in a similar format to what a dermatologist would report on.
 
@@ -136,17 +136,17 @@ This inference happens completely on-device.
 
 MedGemma-1.5-4B fits as the perfect base model for this workflow for a number of reasons:
 
-* **Small enough to run on-device:** MedGemma-1.5-4B brings AI to where people are, their own devices. Users of Sunny can be confident no data will ever leave their device for inference. Because Sunny-MedGemma runs on device, this also means inference cost is next to zero, meaning Sunny could be deployed to millions of people without significantly increasing costs.
-* **Trained a vast number of medical images:** The [data card for MedGemma-1.5-4B](https://huggingface.co/google/medgemma-1.5-4b-it#data-ownership-and-documentation) lists a large amount of dermatology-related datasets used in training. This means the model already has a good representation of the type of skin images seen in the Sunny workflow. Other models, such as Gemma-3n, have good broad vision and language capabilities and could potentially be fine-tuned for our workflow, however, this would likely take far more effort. Hence, MedGemma’s medical focus wins out over these.
-* **Better structured data generation:** Much better at structured data outputs than the previous generation (this is important for crafting reliable and readable reports).
+* **Privacy, free inference and small enough to run on-device:** MedGemma-1.5-4B brings AI to where people are, their own devices. Users of Sunny can be confident no data will ever leave their device for inference or storage. Because Sunny-MedGemma runs on device, this also means inference cost is next to zero, meaning Sunny could be deployed to millions of people without significantly increasing costs.
+* **Trained a vast number of medical images:** The [data card for MedGemma-1.5-4B](https://huggingface.co/google/medgemma-1.5-4b-it#data-ownership-and-documentation) lists a large amount of dermatology-related datasets used in training. This means the model already has a good representation of the type of skin images seen in the Sunny workflow. Other models, such as Gemma-3n, have good broad vision and language capabilities and could potentially be fine-tuned for our workflow, however, this would likely take far more effort. Hence, MedGemma’s medical focus wins out over other general models.
+* **Better structured data generation:** The [benchmarks show](https://huggingface.co/google/medgemma-1.5-4b-it#document-understanding-evaluations) MedGemma-1.5-4B is much better at structured data outputs than the previous generation (this is important for crafting reliable and readable reports).
 
 ## Technical Details
 
-We fine-tune MedGemma-1.5 on a custom dataset for our workflow.
+We fine-tune MedGemma-1.5 on a [custom dataset](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) for our workflow.
 
-Namely, we collect 1000 images of skin and structured text-based descriptions in a similar style to what dermatologists would record during skin examinations.
+Specifically, we collect 1000 images of skin and structured text-based descriptions in a similar style to what dermatologists would record during skin examinations.
 
-We also collect 100 images of the front and back of sunscreen bottles for structured sunscreen data extraction (though our app is mainly focused on skin photos).
+We also collect 100 images of the front and back of sunscreen bottles for structured sunscreen data extraction (though our app is mainly focused on skin photos as sunscreen extraction performance requires improvement).
 
 Since MedGemma-1.5 already has a significant latent representation of skin and text-based images, the fine-tuning is specifically to get it to extract structured data with a much smaller input prompt.
 
@@ -154,7 +154,7 @@ For example, we use the “skin extract” (token count = 4) prompt rather than 
 
 TK image 04 - token counts for different prompts
 
-Why do this?
+Why a small input prompt?
 
 Because when deploying a model to an edge device such as a mobile phone with limited memory, every token counts.
 
@@ -180,9 +180,9 @@ TK image 06 - demo of app running on device with fine-tuned model as well as non
 
 ### Conversion to MLX
 
-Once our Sunny-MedGemma model was fine-tuned, we uploaded it to the Hugging Face Hub.
+Once our Sunny-MedGemma model was fine-tuned, we [uploaded it to the Hugging Face Hub](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune).
 
-Since this was in PyTorch format and in `torch.bfloat16` datatype, it was incompatible with running on device. 
+Since this was in Transformers/PyTorch format and in `torch.bfloat16` datatype, it was incompatible with running on device. 
 
 So we converted the model to MLX format using [`mlx-vlm`](https://github.com/Blaizzy/mlx-vlm) and lowered it to 4bit with rounding to nearest (RTN) quantization.
 
@@ -190,7 +190,7 @@ This quantization reduced the model’s footprint from 8.6GB (PyTorch format) to
 
 ### Deployment to iOS
 
-We download the model and tokeniser artifacts using Hugging Face’s Swift Transformers.
+We download the model and tokeniser artifacts using [Hugging Face’s Swift Transformers](https://github.com/huggingface/swift-transformers).
 
 Inference is performed using [`mlx-swift-lm`](https://github.com/ml-explore/mlx-swift-lm). 
 
@@ -206,7 +206,7 @@ Our application is available to try out via TestFlight (TK - link to TestFlight)
 
 * **Quantization damages model performance slightly.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) in the [`mlx-lm`](https://github.com/ml-explore/mlx-lm) repo.
 * **Bringing to Android.** Right now, Sunny is iOS only (this is where our team's skillset is). Future work would focus on expanding it to Android as well. On-device deployment for Android could use a similar workflow to [Google's AI Edge Gallery](https://github.com/google-ai-edge/gallery) as well as leverage [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM) for deployment.
-* **Speeding up the vision encoder.** To improve prefill speeds and TTFT (time to first token), we’d like to explore using a different vision encoder such as MobileNetV5 (used in Gemma-3n) which enables better on-device hardware usage compared to SigLIP. MobileNetV5 can be run entirely on the neural engine (where as SigLIP uses much of the GPU via MLX). Future works would involve potentially replacing the Med-SigLIP vision encoder with MobileNetV5, however, this would likely require a significant retraining on medical-related data.
+* **Speeding up the vision encoder.** To improve prefill speeds and TTFT (time to first token), we’d like to explore using a different vision encoder such as [MobileNetV5](https://huggingface.co/timm/mobilenetv5_300m.gemma3n) (used in Gemma-3n) which enables better on-device hardware usage compared to SigLIP. MobileNetV5 can be run entirely on the neural engine (where as SigLIP uses much of the GPU via MLX). Future works would involve potentially replacing the [MedSigLIP](https://developers.google.com/health-ai-developer-foundations/medsiglip) vision encoder with MobileNetV5, however, this would likely require a significant retraining on medical-related data.
 * **Increase data for fine-tuning.** Our fine-tuning dataset only spans ~1.1k samples with a Gemini 3 Flash teacher. Future works would largely increase this dataset size as well as get official inputs from professional dermatologists to guide the model. 
 * **Hard negative training.** Right now our model will generate a response no matter what image is uploaded on device. To prevent unwanted generations, future fine-tuning datasets would likely include a significant number of images of what to reject. For example, if someone uploads a photo of their dog accidentally, we’d prefer the model not to start extracting skin-related details.
 
