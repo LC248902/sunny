@@ -11,13 +11,18 @@ TK image - header image
 * [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
 * Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
 
-## Quick Links
+## Resources
 
-* TK - Our dataset - 
-* TK - Our fine-tuned MedGemma-1.5 model - 
-* TK - The code to our app Sunny - 
-* TK - Writeup link (you're currently reading this) - 
-* TK - Video link - 
+| Resource | Description | Link |
+|----------|-------------|------|
+| TK - Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | TK |
+| TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
+| TK - Video | Video overview of the Sunny project. | TK |
+| Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
+| Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
+| Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
+| Sunny-MedGemma-PyTorch | Fine-tuned MedGemma specifically for Sunny's use case of extracting data from skin and sunscreen images. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune) |
+| Sunny-MedGemma-MLX | Fine-tuned MedGemma converted to MLX for deployment on iOS devices. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit) |
 
 ## Disclaimers 
 
@@ -25,7 +30,7 @@ TK image - header image
 
 > *Cancer Council Australia does not recommend the use of smartphone applications by consumers to self-diagnose skin cancer. Source: [cancer.org.au](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/early-detection)*
 
-* Sunny is targeted at *all* skin cancers, however the literature often reports on melanoma and keratinocyte cancers separately.
+* Sunny is targeted at *all* potential skin cancers, however the literature often reports on melanoma and keratinocyte cancers separately.
 
 ## Problem Domain
 
@@ -41,7 +46,7 @@ A tragic outcome of the sun Australians love so much.
 
 In 2023–24, skin cancer collectively (melanoma and keratinocyte cancers) cost the Australian healthcare system approximately $2.4 billion.
 
-TK image - cost of skin cancer
+TK image 00 - cost of skin cancer
 
 With melanoma treatment accounting for $596 million [^6] and keratinocyte skin cancers costing $1.87 billion [^7]. Skin cancer is the most expensive cancer to treat in Australia, more than lung, breast, and bowel cancer [^7].
 
@@ -49,7 +54,7 @@ When it comes to treatments, the numbers are clear.
 
 If discovered early, melanoma can often be treated in the community (e.g., via GP/skin clinic excision) for a mean first-year cost of AU$644 for melanoma in situ (Stage 0) [^8], rising to around AU$1,681/year for Stage I/II in Australian cost modelling [^11] and even further for later stages.
 
-However, if treatment has to move to hospital because melanoma is at a later stage, costs quickly ramp—reaching AU$37,729/year for Stage III (resectable) [^11] and around AU$100,725 in the first year for unresectable Stage III/IV disease in the latest Australian estimates [^8]. Australian modelling also reported three-year costs of AU$187,720 for unresectable Stage III/IV [^11].
+However, if treatment has to move to hospital because melanoma is at a later stage, costs quickly increase, reaching AU$37,729/year for Stage III (resectable) [^11] and around AU$100,725 in the first year for unresectable Stage III/IV disease in the latest Australian estimates [^8]. Australian modelling also reported three-year costs of AU$187,720 for unresectable Stage III/IV [^11].
 
 | Melanoma stage | Treatment setting (typical) | Cost basis | Cost (AU$) | Multiplier vs Stage 0 (AU$644) | Source |
 |---|---|---:|---:|---:|---|
@@ -77,11 +82,11 @@ That's where Sunny comes in.
 
 Sunny fills the gap of the lack of a national screening program at a minimal cost.
 
-Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination — the gap between the 66% who say they regularly check their skin for changes [^16] and the ~22% who actually received a whole-body skin check in the past 12 months [^17].
+Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination. The person in the gap between the 66% who say they regularly check their skin for changes [^16] and the ~22% who actually received a whole-body skin check in the past 12 months [^17].
 
 Sunny transforms a vague "perform self-skin examinations" recommendation into a structured and repeatable full-body self-skin examination habit with trackable progress.
 
-TK image - sunny workflow in app (what does using it)
+TK image 01 - sunny workflow in app (what does using it)
 
 ## Impact Potential
 
@@ -111,7 +116,7 @@ If successful, this will see*:
 
 \* **Note:** These numbers are estimates and would require further research to be backed up correctly. While Sunny is compatiable with any skin cancer, these are focused on melanoma where there is more data available. Numbers would likely increase with keratinocyte cancer data.
 
-TK image - before and after Sunny impact potential
+TK image 02 - before and after Sunny impact potential
 
 ## Overall Solution 
 
@@ -119,7 +124,7 @@ Sunny is an iOS application which runs a fine-tuned version of MedGemma-1.5-4B c
 
 Sunny walks the user through an optional guided full body examination or allows them to update a previously logged skin photograph.
 
-TK image - Sunny app workflow
+TK image 03 - Sunny app workflow
 
 Due to the sensitive nature of skin photographs, using an API-based model solution was out of the question.
 
@@ -147,7 +152,7 @@ Since MedGemma-1.5 already has a significant latent representation of skin and t
 
 For example, we use the “skin extract” (token count = 4) prompt rather than a much larger structured data extraction prompt (token count = 249).
 
-TK image - token counts for different prompts
+TK image 04 - token counts for different prompts
 
 Why do this?
 
@@ -163,15 +168,15 @@ Please see the linked resources above for more.
 
 ### Before and after fine-tuning
 
-TK comparisons of before and after fine-tuning
-
 Before fine-tuning, the base MedGemma-1.5 model is able to extract skin and sunscreen related details.
 
 However, when inputted with our shorter prompts such as “sunscreen extract” and “skin extract”, the generated outputs are not in a structured manner that we’d like for our in-app workflow.
 
+TK image 05 - comparisons of before and after fine-tuning + add more in comparisons? 
+
 The base MedGemma-1.5 model also consistently outputs disclaimers about not being a diagnostic tool. While these are helpful reminders, we find them unnecessary in our app workflow as we can place disclaimers and warnings like these in the onboarding flow rather than generating them every time. To save on generated tokens, we fine-tune without these disclaimers.
 
-TK image - demo of app running on device with fine-tuned model as well as non-fine-tuned model
+TK image 06 - demo of app running on device with fine-tuned model as well as non-fine-tuned model
 
 ### Conversion to MLX
 
@@ -179,15 +184,15 @@ Once our Sunny-MedGemma model was fine-tuned, we uploaded it to the Hugging Face
 
 Since this was in PyTorch format and in `torch.bfloat16` datatype, it was incompatible with running on device. 
 
-So we converted the model to MLX format using `mlx-vlm` and lowered it to 4bit with rounding to nearest (RTN) quantization.
+So we converted the model to MLX format using [`mlx-vlm`](https://github.com/Blaizzy/mlx-vlm) and lowered it to 4bit with rounding to nearest (RTN) quantization.
 
-This quantization reduced the model’s footprint from (TK - size) 8.6GB to 3.4GB, a much more accessible size for an edge device without degrading quality too much.
+This quantization reduced the model’s footprint from 8.6GB (PyTorch format) to 3.4GB (MLX format), a much more accessible size for an edge device without degrading quality too much.
 
 ### Deployment to iOS
 
 We download the model and tokeniser artifacts using Hugging Face’s Swift Transformers.
 
-Inference is performed using `mlx-swift-lm`. 
+Inference is performed using [`mlx-swift-lm`](https://github.com/ml-explore/mlx-swift-lm). 
 
 Based on user intent (e.g. tapping through the app) we pre-load the model so it is ready to perform inference as soon as someone takes a photo.
 
@@ -195,13 +200,12 @@ Inference for a skin extraction takes 3-4s on an iPhone 17 Pro and depending on 
 
 Future work would involve decreasing these inference times through better on-device optimizations such as leveraging CoreML for the vision encoder (similar to [Apple’s FastVLM](https://github.com/apple/ml-fastvlm)).
 
-Our application is available to try out via TestFlight and all of our code is available in the `sunny` GitHub repo.
-
-TK image - app demo running MedGemma 
+Our application is available to try out via TestFlight (TK - link to TestFlight) and all of our code is available in the `sunny` GitHub repo.
 
 ## Limitations and Future Work
 
-* **Quantization damages model performance slightly.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in (tk - link to LEARNED_QUANTS.md) the MLX-LM repo.
+* **Quantization damages model performance slightly.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) in the [`mlx-lm`](https://github.com/ml-explore/mlx-lm) repo.
+* **Bringing to Android.** Right now, Sunny is iOS only (this is where our team's skillset is). Future work would focus on expanding it to Android as well. On-device deployment for Android could use a similar workflow to [Google's AI Edge Gallery](https://github.com/google-ai-edge/gallery) as well as leverage [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM) for deployment.
 * **Speeding up the vision encoder.** To improve prefill speeds and TTFT (time to first token), we’d like to explore using a different vision encoder such as MobileNetV5 (used in Gemma-3n) which enables better on-device hardware usage compared to SigLIP. MobileNetV5 can be run entirely on the neural engine (where as SigLIP uses much of the GPU via MLX). Future works would involve potentially replacing the Med-SigLIP vision encoder with MobileNetV5, however, this would likely require a significant retraining on medical-related data.
 * **Increase data for fine-tuning.** Our fine-tuning dataset only spans ~1.1k samples with a Gemini 3 Flash teacher. Future works would largely increase this dataset size as well as get official inputs from professional dermatologists to guide the model. 
 * **Hard negative training.** Right now our model will generate a response no matter what image is uploaded on device. To prevent unwanted generations, future fine-tuning datasets would likely include a significant number of images of what to reject. For example, if someone uploads a photo of their dog accidentally, we’d prefer the model not to start extracting skin-related details.
