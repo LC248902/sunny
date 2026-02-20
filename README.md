@@ -158,6 +158,11 @@ hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemm
 
 ## Log
 
+* **20 Feb 2026** - Finish writeup.md draft. Need to add images + results + Sunny app overview. Josh made good strides on the Sunny app, it's getting ready for filming/demo.
+    * Next is to finalize the writeup.md with images and cleanup the TK's.
+    * Then to write a video script for recording/editing.
+    * Finally, add all app code and prepare for submission... home stretch baby!
+
 * **19 Feb 2026** - Finalizing fine-tuning notebook as well as preparing example documents for comparison of fine-tuned model vs base model. Will have the following resources uploaded by end of today: fine-tuning notebook, comparisons for base vs fine-tuned model, conversion script for fine-tuned model -> MLX.
     * Added fine-tuning notebook.
     * Updated README's for PyTorch + MLX Sunny-MedGemma's on HF.
