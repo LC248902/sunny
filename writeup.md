@@ -12,160 +12,242 @@ See link to writeup critera: https://www.kaggle.com/competitions/med-gemma-impac
 
 ## Project Name
 
-Sunny - an app to help people track their skin health over time.
+Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin health over time.
+
+TK image - header image
 
 ## Your Team
 
-* Daniel Bourke (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
+* [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
 * Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
 
-## Problem Statement (30% total)
+## Problem Statement 
 
-> Your answer to “Problem domain” & “Impact potential” criteria.
+### Disclaimers 
 
-### Problem Domain (15%)
+* Sunny is not a diagnostic tool, rather a utility for people to track their own skin and discuss findings with their doctor. We agree with the Australian Cancer Council: 
 
-> Criteria: How important is this problem to solve and how plausible is it that AI is right solution?
-> Assessment: You will be assessed on: storytelling, clarity of problem definition, clarity on whether there is an unmet need, the magnitude of the problem, who the user is and their improved journey given your solution.
+> *Cancer Council Australia does not recommend the use of smartphone applications by consumers to self-diagnose skin cancer. Source: [cancer.org.au](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/early-detection)*
 
-Australia is known for its beaches and vast plains.
+* Sunny is targeted at *all* skin cancers, however the literature often reports on melanoma and keratinocyte cancers separately.
 
-Some poets even refer to it as the sunburnt country.
+### Problem Domain
+
+Australia is known for its beaches and vast plains. Some poets even refer to it as the sunburnt country [^1].
 
 However, this sunburn comes at a cost.
 
-Australia has the highest ratio of skin cancer in the world. 
+Australia has the highest rate of skin cancer in the world [^2]. 
 
-This year, it’s estimated 2000 Australians will die of skin cancer (TK - back this up). 
+In 2023, combined deaths from melanoma and keratinocyte cancers totalled an estimated ~2,105 [^3], meaning around 2,000 Australians die from skin cancer each year [^4], more than die in transport accidents [^5]. 
 
-A tragic outcome of the sun we love so much.
+A tragic outcome of the sun Australians love so much.
 
-Cost wise, in 2023/2024 skin cancer cost the Australian health care system $2.4B (TK - resource).
+In 2023–24, skin cancer collectively (melanoma and keratinocyte cancers) cost the Australian healthcare system approximately $2.4 billion.
 
-TK image - graph showing the costs and sources 
+TK image - cost of skin cancer
+
+With melanoma treatment accounting for $596 million [^6] and keratinocyte skin cancers costing $1.87 billion [^7]. Skin cancer is the most expensive cancer to treat in Australia, more than lung, breast, and bowel cancer [^7].
 
 When it comes to treatments, the numbers are clear.
 
-If discovered early, a skin cancer (TK - names of them) can often be treated at a general practitioner or GP for a cost of $500-$1000.
+If discovered early, melanoma can often be treated in the community (e.g., via GP/skin clinic excision) for a mean first-year cost of AU$644 for melanoma in situ (Stage 0) [^8], rising to around AU$1,681/year for Stage I/II in Australian cost modelling [^11] and even further for later stages.
 
-However, if treatment has to move to a hospital because of the skin cancer being at a later stage, treatment costs quickly ramp to $10,000 for Stage III (TK - clarify) or upwards of $100,000 for later stages requiring more advanced treatments (TK - clarify).
+However, if treatment has to move to hospital because melanoma is at a later stage, costs quickly ramp—reaching AU$37,729/year for Stage III (resectable) [^11] and around AU$100,725 in the first year for unresectable Stage III/IV disease in the latest Australian estimates [^8]. Australian modelling also reported three-year costs of AU$187,720 for unresectable Stage III/IV [^11].
 
-In terms of mortality, a skin cancer discovered and treated early has a 99-100% chance survival rate over five years.
+| Melanoma stage | Treatment setting (typical) | Cost basis | Cost (AU$) | Multiplier vs Stage 0 (AU$644) | Best source |
+|---|---|---:|---:|---:|---|
+| Stage 0 (melanoma in situ) | Community (often GP/skin clinic excision) | Mean first-year cost per patient | 644 | 1.0× | [^8] |
+| Stage I/II | Mostly community + specialist follow-up | Mean annual cost per patient | 1,681 | 2.6× | [^11] |
+| Stage III (resectable) | Hospital + surgery ± adjuvant care | Mean annual cost per patient | 37,729 | 58.6× | [^11] |
+| Stage III/IV (unresectable) | Hospital + systemic therapies | Mean first-year cost per patient | 100,725 | 156.4× | [^8] |
+| Stage III/IV (unresectable) | Hospital + systemic therapies | 3-year total cost per patient | 187,720 | 291.5× | [^11] |
 
-Whereas survival rate drops to 25-32% (TK - clarify) if a skin cancer reaches Stage III or IV.
+In terms of mortality, a skin cancer discovered and treated at Stage I has a ~99–100% five-year survival rate [^9].
 
-Researchers and health professionals agree, prevention is the best cure.
+Whereas five-year survival rate drops to ~61% at Stage III (depending on resectability) and just ~26% if a melanoma reaches Stage IV [^9].
 
-And Australia invests millions of (TK - figure) dollars in marketing campaigns discussing sun safety techniques with an estimated cost of $3.20 saved per $1 invested (TK - source). 
+Researchers and health professionals agree: prevention is the best cure. 
 
-But even with all of this, there is currently no national screening program.
+And Australia invests in marketing campaigns discussing sun safety techniques through the SunSmart program which has been running since 1988 [^10]. Research has found that every $1 invested in SunSmart generates a $2.30 net saving [^10].
 
-The current recommended approach is to “perform self-skin examinations” and “visit a skin doctor once per year or when you notice a change”.
+But even with all of this, there is currently no national screening program [^12]. The current recommended approach is to "perform self-skin examinations" and "visit a skin doctor when you notice a change" [^13].
 
-So far this approach has performed well with ~44% of melanomas (TK - source) discovered by patients themselves or with a partner. 
+So far this approach has performed reasonably well, with ~44% of melanomas discovered by patients themselves or with a partner [^14], [^15]. 
 
 But we think this could be better.
 
-That’s where Sunny comes in.
+That's where Sunny comes in.
 
-Sunny fills the gap of the lack of national screening program at a minimal cost.
+Sunny fills the gap of the lack of a national screening program at a minimal cost.
 
-Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination, the gap between the 66% who say they check and the 26% who actually do (TK - resources). 
+Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination — the gap between the 66% who say they regularly check their skin for changes [^16] and the ~22% who actually received a whole-body skin check in the past 12 months [^17].
 
-Sunny transforms a vague “perform self-skin examinations” recommendation into a structured and repeatable full body self-skin examination habit with trackable progress.
+Sunny transforms a vague "perform self-skin examinations" recommendation into a structured and repeatable full-body self-skin examination habit with trackable progress.
 
-TK - Sunny workflow example here: what does Sunny actually do?
+TK image - sunny workflow in app (what does using it)
 
-* Storytelling: Australia is known for its beaches... is referred to as the sunburnt country... however, this sunburn often comes at a cost 
-* Unmet need: No nation-wide screening, no matter, Sunny puts the power into the hands of the user, running on the tailwinds of 44% of all melanomas being discovered by patients themselves or partners 
-* Magnitude of the problem: $2.5B on skin cancer, early treatment costs are far smaller than later treatment costs, not to mention far more effective 
-* Who is our user? What is their improved journey?
+### Impact Potential
 
-TK -- Sunny’s ideal user: Our primary user is an Australian adult aged 30–69 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination — the gap between the 66% who say they check and the 26% who actually do. Sunny converts their good intention into a guided, repeatable habit with trackable progress, replacing vague self-reassurance with confident, thorough self-examination.
+Our vision is for Sunny to become the national standard for self-skin-examination (SSE). 
 
-### Impact Potential (15%)
-
-> Criteria: If the solution works, what impact would it have?
-> Assessment: You will be assessed on: clear articulation of real of anticipated impact of your application within the given problem domain and description of how you calculated your estimates. 
-
-* Our anticipated impact: We’d like Sunny to become the national standard for self-skin-examination, a central place where people can keep track of their skin and potential changes over time. We’d like the numbers of people who report self-examination to increase from XX to YY.
-	* TK - What will this impact do? Let’s get some numbers behind it.
-
-Our vision is for Sunny to become the national standard for self-skin-examination.
-
-A central place where people can keep track of their skin and potential changes overtime.
+A central place where people can keep track of their skin and potential changes over time. 
 
 No more vague memories of what a skin spot used to look like, Sunny provides a structured way for thorough self-skin-examination and tracking over time.
 
-Our goal with Sunny is to increase the percentage of people who perform regular self-skin-examinations from XX to YY.
+In a country where 44% of melanomas are first noticed by the patient themselves [^14], [^15], making self-examination easier and more consistent is one of the highest-impact interventions available. 
 
-TK - If successful, TK - fill in the numbers here... 
+Research suggests SSE may reduce melanoma mortality by as much as 63% [^18], primarily by catching skin cancers earlier when the 5-year survival rate is ~99-100% (Stage I) versus just ~26% (Stage IV)
 
-## Overall Solution (20%)
+And when treatment costs AU$644/year per patient for early stage treatment compared to AU$100,725+ for advanced disease [^8], early detection comes with a large cost saving opportunity.
 
-> Your answer to “Effective use of HAI-DEF models” criterion.
-> Criteria: 
-> Whether the submission proposes an application that uses HAI-DEF models to their fullest potential, where other solutions would likely be less effective. 
+In light of this, our goals are:
+
+- **Increase the number of Australians who perform a whole-body self-skin examination at least once per year:** from ~26% to **50%** [^19].
+- **Increase number of skin cancer cases treated at early stage (Stage I) by 20%:** i.e., 20% fewer cases progressing to late stage (Stage III/IV).
+
+If successful, this will see*:
+
+- **~$11 million in healthcare cost savings per year** — driven by the 60× cost gap between early and late-stage treatment for melanoma.
+    - Based on moving 175 cases from late (Stage III/IV,  $37,729 to $100,725/year) to early (Stage I, $1,681/year). 
+- **~83 Australian lives saved per year** — roughly 1-2 lives saved every week.
+    - Assumed on late stage cases taking on the early stage survival profile. 
+
+\* **Note:** These numbers are estimates and would require further research to be backed up correctly. While Sunny is compatiable with any skin cancer, these are focused on melanoma where there is more data available. Numbers would likely increase with keratinocyte cancer data.
+
+TK image - before and after Sunny impact potential
+
+## Overall Solution 
 
 Sunny is an iOS application which runs a fine-tuned version of MedGemma-1.5-4B called Sunny-MedGemma on device via Apple’s MLX framework.
 
+Sunny walks the user through an optional guided full body examination or allows them to update a previously logged skin photograph.
+
+TK image - Sunny app workflow
+
 Due to the sensitive nature of skin photographs, using an API-based model solution was out of the question.
 
-All data within the Sunny App is passcode protected and never leaves the user’s device. 
+All data within the Sunny app is passcode protected and never leaves the user’s device. 
 
 When a user takes a photo of their skin, Sunny-MedGemma generates a structured description in a similar format to what a dermatologist would report on.
 
 This inference happens completely on-device.
 
-MedGemma-1.5-4B fits as the perfect base model for this workflow  for a number of reasons:
+MedGemma-1.5-4B fits as the perfect base model for this workflow for a number of reasons:
 
 * **Small enough to run on-device:** MedGemma-1.5-4B brings AI to where people are, their own devices. Users of Sunny can be confident no data will ever leave their device for inference. Because Sunny-MedGemma runs on device, this also means inference cost is next to zero, meaning Sunny could be deployed to millions of people without significantly increasing costs.
-* **Trained a vast number of medical images:** The data card for MedGemma-1.5-4B lists a large amount of dermatology-related datasets used in training. This means the model already has a good representation of the type of skin images seen in the Sunny workflow. Other models have good broad vision and language capabilities and could potentially be fine-tuned for our workflow, however, this would likely take far more effort. Hence, MedGemma’s medical focus wins out over these.
+* **Trained a vast number of medical images:** The [data card for MedGemma-1.5-4B](https://huggingface.co/google/medgemma-1.5-4b-it#data-ownership-and-documentation) lists a large amount of dermatology-related datasets used in training. This means the model already has a good representation of the type of skin images seen in the Sunny workflow. Other models, such as Gemma-3n, have good broad vision and language capabilities and could potentially be fine-tuned for our workflow, however, this would likely take far more effort. Hence, MedGemma’s medical focus wins out over these.
 * **Better structured data generation:** Much better at structured data outputs than the previous generation (this is important for crafting reliable and readable reports).
 
-* MedGemma already trained on much of ISIC data so it’s in the latent space
-* Much better at structured data JSON generation
-* Many different dermatology datasets already in the training data (Dermatology dataset 1->6) 
-* Other models have a broad capability but don’t have this kind of data in the pre-training data so would likely require more effort to tailor towards the medical space 
-* Crucially: MedGemma-4B is small enough to run on a phone device, the AI meets people where they are 
+## Technical Details
 
-## Technical Details (20%)
+We fine-tune MedGemma-1.5 on a custom dataset for our workflow.
 
-> Your answer to “Product feasibility” criterion.
-> **Criteria:** Is the technical solution clearly feasible?
-> **Assessment:** You will be assessed on: technical documentation detailing model fine-tuning, model’s performance analysis, your user-facing application stack, deployment challenges and how you plan on overcoming them. Consideration of how a product might be used in practice, rather than only for benchmarking.
+Namely, we collect 1000 images of skin and structured text-based descriptions in a similar style to what dermatologists would record during skin examinations.
 
-UPTOHERE:
-- technical details, make performance analysis with structured/unstructured data 
-- go back through report and add details
-- update the impact statement
+We also collect 100 images of the front and back of sunscreen bottles for structured sunscreen data extraction (though our app is mainly focused on skin photos).
 
-* Technical documentation
+Since MedGemma-1.5 already has a significant latent representation of skin and text-based images, the fine-tuning is specifically to get it to extract structured data with a much smaller input prompt.
 
--> Sunny workflow walkthrough - how does Sunny work?
--> GitHub repo + links
+For example, we use the “skin extract” (token count = 4) prompt rather than a much larger structured data extraction prompt (token count = 249).
 
-* Model’s performance analysis
+TK image - token counts for different prompts
 
--> Compare fine-tuned model to original model
--> “We fine-tune to enable smaller prompt inputs to save on memory. When you’re executing models on-device, every token counts.” 
+Why do this?
 
-* User-facing application stack
-* Deployment challenges + how you plan on overcoming them
+Because when deploying a model to an edge device such as a mobile phone with limited memory, every token counts.
 
--> Discuss the lowering of precision and how this impacts performance 
+We are not necessarily introducing new knowledge to the model, rather shaping its outputs.
 
-* How a product might be used in practice, rather than only for benchmarking
+Following the [SmolDocling paper](https://arxiv.org/abs/2503.11576), we freeze the vision tower and fully fine-tune the multimodal projector as well as language model.
 
-### Limitations and future work
+We fine-tune the model using [Hugging Face’s TRL](https://github.com/huggingface/trl) in a supervised fine-tuning manner on a 80GB A100 via Google Colab for 3 epochs which takes around 40-50 minutes.
 
-* Improve model performance at lower quantization levels
-* Increase data for fine-tuning
-* False positive rejection - what if someone uploads an image of “not skin”?
+Please see the linked resources above for more.
 
-## Sources
+### Before and after fine-tuning
 
-* Australian Institute of Health and Welfare: Health system spending on disease and injury in Australia 2023–24 - https://www.aihw.gov.au/reports/health-welfare-expenditure/health-system-spending-disease-injury-aus-2023-24/contents/spending-on-disease-by-abod-conditions 
-* Estimated Healthcare Costs of Melanoma and Keratinocyte Skin Cancers in Australia and Aotearoa New Zealand in 2021 - https://pmc.ncbi.nlm.nih.gov/articles/PMC8948716/ 
-    * Cite: Gordon et al. 2022, Int J Environ Res Public Health (stage-by-stage melanoma costs, KC mean cost): PMC8948716 
-* Non-melanoma skin cancer: general practice consultations, hospitalisation and mortality - https://www.aihw.gov.au/reports/cancer/non-melanoma-skin-cancer/summary 
+TK comparisons of before and after fine-tuning
+
+Before fine-tuning, the base MedGemma-1.5 model is able to extract skin and sunscreen related details.
+
+However, when inputted with our shorter prompts such as “sunscreen extract” and “skin extract”, the generated outputs are not in a structured manner that we’d like for our in-app workflow.
+
+The base MedGemma-1.5 model also consistently outputs disclaimers about not being a diagnostic tool. While these are helpful reminders, we find them unnecessary in our app workflow as we can place disclaimers and warnings like these in the onboarding flow rather than generating them every time. To save on generated tokens, we fine-tune without these disclaimers.
+
+TK image - demo of app running on device with fine-tuned model as well as non-fine-tuned model
+
+### Conversion to MLX
+
+Once our Sunny-MedGemma model was fine-tuned, we uploaded it to the Hugging Face Hub.
+
+Since this was in PyTorch format and in `torch.bfloat16` datatype, it was incompatible with running on device. 
+
+So we converted the model to MLX format using `mlx-vlm` and lowered it to 4bit with rounding to nearest (RTN) quantization.
+
+This quantization reduced the model’s footprint from (TK - size) 8.6GB to 3.4GB, a much more accessible size for an edge device without degrading quality too much.
+
+### Deployment to iOS
+
+We download the model and tokeniser artifacts using Hugging Face’s Swift Transformers.
+
+Inference is performed using `mlx-swift-lm`. 
+
+Based on user intent (e.g. tapping through the app) we pre-load the model so it is ready to perform inference as soon as someone takes a photo.
+
+Inference for a skin extraction takes 3-4s on an iPhone 17 Pro and depending on the detail in a sunscreen photo extraction takes 10-20s on an iPhone 17 Pro.
+
+Future work would involve decreasing these inference times through better on-device optimizations such as leveraging CoreML for the vision encoder (similar to [Apple’s FastVLM](https://github.com/apple/ml-fastvlm)).
+
+Our application is available to try out via TestFlight and all of our code is available in the `sunny` GitHub repo.
+
+TK image - app demo running MedGemma 
+
+## Limitations and Future Work
+
+* **Quantization damages model performance slightly.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in (tk - link to LEARNED_QUANTS.md) the MLX-LM repo.
+* **Speeding up the vision encoder.** To improve prefill speeds and TTFT (time to first token), we’d like to explore using a different vision encoder such as MobileNetV5 (used in Gemma-3n) which enables better on-device hardware usage compared to SigLIP. MobileNetV5 can be run entirely on the neural engine (where as SigLIP uses much of the GPU via MLX). Future works would involve potentially replacing the Med-SigLIP vision encoder with MobileNetV5, however, this would likely require a significant retraining on medical-related data.
+* **Increase data for fine-tuning.** Our fine-tuning dataset only spans ~1.1k samples with a Gemini 3 Flash teacher. Future works would largely increase this dataset size as well as get official inputs from professional dermatologists to guide the model. 
+* **Hard negative training.** Right now our model will generate a response no matter what image is uploaded on device. To prevent unwanted generations, future fine-tuning datasets would likely include a significant number of images of what to reject. For example, if someone uploads a photo of their dog accidentally, we’d prefer the model not to start extracting skin-related details.
+
+## References
+
+[^1]: Dorothea Mackellar. "My Country" (1908). — "I love a sunburnt country, a land of sweeping plains." [Link](https://www.dorotheamackellar.com.au/my-country)
+
+[^2]: Cancer Council Australia. Skin Cancer Incidence and Mortality. — "Australia and New Zealand have the highest melanoma incidence rates in the world, 2–3× higher than the US and UK." [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/skin-cancer-incidence-and-mortality)
+
+[^3]: Australian Skin Cancer Foundation (2024). Skin Cancer Australia Statistics. — Combined melanoma and keratinocyte cancer deaths estimated ~2,105 in 2023 (source: ACD). [Link](https://www.australianskincancerfoundation.org/skin-cancer-australia-statistics)
+
+[^4]: SunSmart / Cancer Council Victoria. Skin cancer facts & stats. — "About 2,000 Australians die from skin cancer each year." [Link](https://www.sunsmart.com.au/skin-cancer/skin-cancer-facts-stats)
+
+[^5]: Cancer Council Australia. — "Skin cancer causes more deaths than transport accidents every year in Australia." [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/skin-cancer-incidence-and-mortality)
+
+[^6]: Australasian College of Dermatologists (ACD) / MSCAN. Australia’s National Skin Cancer Scorecard Report 2025 – Full Report. — Notes 2023/24 melanoma cost $596 million (and total skin cancer cost $2.47 billion). [Link](https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf)
+
+[^7]: Australasian College of Dermatologists (ACD) / MSCAN. Australia’s National Skin Cancer Scorecard Report 2025 – Full Report. — Notes keratinocyte cancers cost $1.87 billion in 2023/24 and skin cancer is the most costly cancer to treat in Australia. [Link](https://www.dermcoll.edu.au/wp-content/uploads/2025/11/2025-REPORT_SKIN-CANCER-SCORECARD.pdf)
+
+[^8]: Gordon LG, et al. / QIMR Berghofer Medical Research Institute. "Estimated Healthcare Costs of Melanoma and Keratinocyte Skin Cancers in Australia and Aotearoa New Zealand in 2021." *International Journal of Environmental Research and Public Health*. 2022. — Mean first-year cost: AU$644 (in situ), AU$1,681 (Stage I/II), AU$37,729 (Stage III resectable), AU$100,725 (Stage III/IV unresectable), AU$187,720 (3-year Stage III/IV). [Link](https://pubmed.ncbi.nlm.nih.gov/35328865/)
+
+[^9]: AIHW / NCCI (2018). Relative survival by stage at diagnosis (melanoma) — based on 2011 Australian Cancer Database cohort. Stage I ~99–100% 5-year survival; Stage III ~61–72% (3-year, varies by age); Stage IV ~26%. [Link](https://ncci.canceraustralia.gov.au/outcomes/relative-survival-rate/relative-survival-stage-diagnosis-melanoma)
+
+[^10]: SunSmart / Cancer Council Victoria. — SunSmart program has been running since 1988; generates $2.30 net saving for every $1 spent. [Link](https://en.wikipedia.org/wiki/SunSmart)
+
+[^11]: Elliott TM, Whiteman DC, Olsen CM, Gordon LG. "Estimated Healthcare Costs of Melanoma in Australia Over 3 Years Post-Diagnosis." Applied Health Economics and Health Policy. 2017;15:805–816. (Reports mean annual costs including AU$1,681 for Stage 0/I/II and AU$37,729 for Stage III resectable, plus 3-year cost AU$187,720 for Stage III unresectable/IV.) [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC8948716/)
+
+[^12]: Australian Government Department of Health and Aged Care / Standing Committee on Screening. "Skin cancer screening – position statement." 2017. (Explains why Australia does not have a national skin cancer screening program and endorses Cancer Council Australia advice; does not recommend mass/population-based screening for melanoma due to insufficient evidence of reduced morbidity/mortality.) [Link](https://www.health.gov.au/resources/publications/skin-cancer-screening-position-statement?language=en) Also see: RACGP. "Skin cancer" in *Guidelines for preventive activities in general practice* (recommendation table; average/below-average risk: regular skin checks not recommended). 28 June 2024. [Link](https://www.racgp.org.au/clinical-resources/clinical-guidelines/key-racgp-guidelines/view-all-racgp-guidelines/preventive-activities-in-general-practice/cancer/skin-cancer)
+
+[^13]: Cancer Council Australia. "Early Detection of Skin Cancer – Position Statement." 2019. (States population screening programs are not recommended; supports opportunistic screening by general practitioners for people at high risk, and recommends individuals consult a doctor for new/changing lesions. Notes high-risk individuals should have clinical skin examinations every 6–12 months, and those at very high risk may be advised to have 6-monthly full skin examinations supported by photography/dermoscopy, alongside regular self-examination.) [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/early-detection) 
+
+Supporting RACGP guidance on high-risk self-check frequency (often cited in Australian primary care resources): The Royal Australian College of General Practitioners. "Skin checks." *Australian Family Physician*. 2012. (Risk table includes: high risk = 3-monthly self-examination and 12-monthly skin check with a doctor.) [Link](https://www.racgp.org.au/afp/2012/july/skin-checks)
+
+[^14]: Cancer Council Australia. Position Statement: Screening and early detection of skin cancer. — "The majority of melanomas are detected by patients themselves or their partners." [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/early-detection)
+
+[^15]: Cancer Council Australia. Detection and screening (UV Radiation: Related resources), section "Skin self-examination". Notes that "A Queensland study found nearly half (44%) of those with histologically confirmed melanoma detected the melanoma themselves." [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/detection-and-screening)
+
+[^16]: Australian Bureau of Statistics. National Health Survey 2013–14 (n=19,000+). As cited in Cancer Council Australia, Detection and Screening. — "Two-thirds (66%) of Australians regularly check their skin for changes in freckles and moles." [Link](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention/uv-radiation/related-resources/detection-and-screening)
+
+[^17]: Cust AE, et al. "Prevalence of skin examination behaviours among Australians over time." *Preventive Medicine Reports*. 2021;21:101316. — National Sun Protection Survey (2016–17, n=23,374): only 22% reported whole-body skin checks in the past 12 months; 64% reported no skin checks at all. [Link](https://pubmed.ncbi.nlm.nih.gov/33341599/)
+
+[^18]: Berwick M, Begg CB, Fine JA, Roush GC, Barnhill RL. "Screening for cutaneous melanoma by skin self-examination." *Journal of the National Cancer Institute*. 1996;88(1):17–23. — SSE may reduce melanoma mortality by 63%. [Link](https://pubmed.ncbi.nlm.nih.gov/8847720/)
+
+[^19]: Aitken JF, Janda M, Youl PH, Lowe JB, Ring IT, Elwood M. 'Clinical outcomes from skin screening clinics within a community-based melanoma screening program.' Journal of the American Academy of Dermatology. 2004;50(1):105–114. — Reports 25.9% performed whole-body skin self-examination in the past 12 months (Queensland, Australia). [Link](https://pubmed.ncbi.nlm.nih.gov/15286465/)

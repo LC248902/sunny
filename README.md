@@ -18,8 +18,6 @@ TK image - image of Sunny working
 
 ## TK - Resources
 
-TK - finish links to resources
-
 | Resource | Description | Link |
 |----------|-------------|------|
 | TK - Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | TK |
@@ -56,6 +54,8 @@ Extension: MedASR could later be integrated to allow voice-to-text notes for tra
 ## Video ideas
 
 There is a required 3 minute video to be submitted alongside the code and writeup materials.
+
+Make a "before and after" Sunny.
 
 For the video, my idea so far is: 
 
