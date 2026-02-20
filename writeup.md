@@ -1,6 +1,15 @@
-# Sunny - Kaggle Competition Writeup Template
+# Sunny - MedGemma Impact Kaggle Competition Writeup
 
-See link to writeup critera: https://www.kaggle.com/competitions/med-gemma-impact-challenge/overview 
+## Project Name
+
+Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin health over time.
+
+TK image - header image
+
+## Team
+
+* [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
+* Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
 
 ## Quick Links
 
@@ -9,17 +18,6 @@ See link to writeup critera: https://www.kaggle.com/competitions/med-gemma-impac
 * TK - The code to our app Sunny - 
 * TK - Writeup link (you're currently reading this) - 
 * TK - Video link - 
-
-## Project Name
-
-Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin health over time.
-
-TK image - header image
-
-## Your Team
-
-* [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
-* Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
 
 ## Disclaimers 
 
