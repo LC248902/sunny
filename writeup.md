@@ -4,7 +4,7 @@
 
 Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin health over time.
 
-TK image - header image
+![](./images/header-sunny-overview.png)
 
 ## Team
 
@@ -127,9 +127,9 @@ If successful, this will see*:
 
 Sunny is an iOS application which runs a fine-tuned version of MedGemma-1.5-4B called Sunny-MedGemma on device via Apple’s MLX framework.
 
-Sunny walks the user through an optional guided full body examination or allows them to update a previously logged skin photograph.
+Sunny gives the user a structured way to perform a full body examination as well as allows them to review and update previously logged skin photographs.
 
-TK image 03 - Sunny app workflow
+TK image 03 - Sunny app workflow: Front page -> add scan -> body part -> photo -> model -> output save -> report export with metadata 
 
 Due to the sensitive nature of skin photographs, using an API-based model solution was out of the question.
 

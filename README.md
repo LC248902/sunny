@@ -158,6 +158,9 @@ hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemm
 
 ## Log
 
+* **21 Feb 2026** - Adding images and demos to writeup.md. Draft is largely done and ready for final checks. Once app is completed, will add those images.
+    * Going to write a script later for shooting a video, aim is for 2-2.5 minutes.
+
 * **20 Feb 2026** - Finish writeup.md draft. Need to add images + results + Sunny app overview. Josh made good strides on the Sunny app, it's getting ready for filming/demo.
     * Next is to finalize the writeup.md with images and cleanup the TK's.
     * Then to write a video script for recording/editing.
