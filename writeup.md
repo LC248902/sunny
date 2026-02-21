@@ -179,11 +179,13 @@ Before fine-tuning, the base MedGemma-1.5 model is able to extract skin and suns
 
 However, when inputted with our shorter prompts such as “sunscreen extract” and “skin extract”, the generated outputs are not in a structured manner that we’d like for our in-app workflow.
 
-TK image 05 - comparisons of before and after fine-tuning + add more in comparisons? 
+We also found the quantized MLX version of the base model could not reliably adhere to a longer prompt (see `prompts/skin_extract_long.txt`) as well as the Transformers/PyTorch version of the base model. Fine-tuning the base model made the structured generations much more reliable when in MLX format.
+
+!["A side-by-side comparison of three mobile app screens demonstrating different model outputs for a skin lesion analysis. The left screen, labeled 'Base MLX model + "skin extract" prompt', points to a red-dashed box highlighting 'Excessive disclaimer output'. The middle screen, 'Base MLX model + long skin extract prompt', highlights 'Unreliable JSON output' showing markdown formatting errors. The right screen, 'Fine-tuned MLX model + "skin extract" prompt', uses green-dashed boxes to highlight that it successfully 'Adheres to structure' by producing clean JSON, and achieves the 'Shortest total time', pointing to a total processing time of 13.47 seconds compared to the longer 26.39s and 28.44s times on the other screens."](./images/05-demo-app-generation-comparisons.png)
+
+*Comparison of before and after fine-tuning with various prompts. Left: The base model tends to generate excess disclaimers. We can provide these in the UI of the app so these are fine-tuned out. Middle: The base model with a longer prompt unreliably generates JSON outputs. Right: The fine-tuned Sunny-MedGemma model is able to reliably generate structured outputs in our desired format.*
 
 The base MedGemma-1.5 model also consistently outputs disclaimers about not being a diagnostic tool. While these are helpful reminders, we find them unnecessary in our app workflow as we can place disclaimers and warnings like these in the onboarding flow rather than generating them every time. To save on generated tokens, we fine-tune without these disclaimers.
-
-TK image 06 - demo of app running on device with fine-tuned model as well as non-fine-tuned model
 
 ### Conversion to MLX
 
@@ -203,7 +205,7 @@ Inference is performed using [`mlx-swift-lm`](https://github.com/ml-explore/mlx-
 
 Based on user intent (e.g. tapping through the app) we pre-load the model so it is ready to perform inference as soon as someone takes a photo.
 
-Inference for a skin extraction takes 3-4s on an iPhone 17 Pro and depending on the detail in a sunscreen photo extraction takes 10-20s on an iPhone 17 Pro.
+Inference for a skin extraction takes 5-6s TFTT (time to first token) and about 10-13s token on an iPhone 17 Pro and depending on the detail in a sunscreen photo extraction takes 10-20s on an iPhone 17 Pro.
 
 Future work would involve decreasing these inference times through better on-device optimizations such as leveraging CoreML for the vision encoder (similar to [Apple’s FastVLM](https://github.com/apple/ml-fastvlm)).
 
