@@ -40,7 +40,7 @@ However, this sunburn comes at a cost.
 
 Australia has the highest rate of skin cancer in the world [^2]. 
 
-In 2023, combined deaths from melanoma and keratinocyte cancers totalled an estimated ~2,105 [^3], meaning around 2,000 Australians die from skin cancer each year [^4], more than die in transport accidents [^5]. 
+In 2023, combined deaths from melanoma and keratinocyte cancers totalled an estimated ~2,105 [^3], meaning around 2,000 Australians die from skin cancer each year [^4], more than the number of people who die in Australian transport accidents [^5]. 
 
 A tragic outcome of the sun Australians love so much.
 
@@ -77,7 +77,7 @@ And Australia invests in marketing campaigns discussing sun safety techniques th
 
 But even with all of this, there is currently no national screening program [^12]. The current recommended approach is to "perform self-skin examinations" and "visit a skin doctor when you notice a change" [^13].
 
-So far this approach has performed reasonably well, with ~44% of melanomas discovered by patients themselves or with a partner [^14], [^15]. 
+So far this approach has performed reasonably well, with ~44% of melanomas discovered by patients themselves or by a partner [^14], [^15]. 
 
 But we think this could be better.
 
@@ -85,7 +85,7 @@ That's where Sunny comes in.
 
 Sunny fills the gap of the lack of a national screening program at a minimal cost.
 
-Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not perform a structured whole-body examination. The person in the gap between the 66% who say they regularly check their skin for changes [^16] and the ~22% who actually received a whole-body skin check in the past 12 months [^17].
+Our primary user is an Australian adult aged 30–70 who is aware of skin cancer risk and believes they monitor their skin, but does not regularly perform a structured whole-body examination. The person in the gap between the 66% who say they regularly check their skin for changes [^16] and the ~22% who actually received a whole-body skin check in the past 12 months [^17].
 
 Sunny transforms a vague "perform self-skin examinations" recommendation into a structured and repeatable full-body self-skin examination habit with trackable progress.
 
@@ -155,7 +155,7 @@ We also collect 100 images of the front and back of sunscreen bottles for struct
 
 Since MedGemma-1.5 already has a significant latent representation of skin and text-based images, the fine-tuning is specifically to get it to extract structured data with a much smaller input prompt.
 
-For example, we use the `“skin extract”` (token count = 3) prompt rather than a much larger structured data extraction prompt (token count = 249).
+For example, we use the `“skin extract”` (token count = 3) prompt rather than a much larger structured data extraction prompt (token count = 248).
 
 !['A diagram illustrating how the MedGemma Tokenizer converts different prompt lengths into token arrays. On the left, a brief variable SKIN_EXTRACT_PROMPT_SHORT containing just the text "skin extract" passes through the tokenizer, resulting in an array of three numbers and a "Short prompt token count: 3". On the right, SKIN_EXTRACT_PROMPT_LONG contains a highly detailed multi-line instruction set including a role, task, guidelines, and a JSON extraction schema for analyzing skin lesions. Passing this through the tokenizer yields a much larger array of numbers and a "Long prompt token count: 248"'](./images/04-short-vs-long-token-inputs.png)
 
@@ -213,7 +213,7 @@ Our application is available to try out via TestFlight (TK - link to TestFlight)
 
 ## Limitations and Future Work
 
-* **Quantization damages model performance slightly.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) in the [`mlx-lm`](https://github.com/ml-explore/mlx-lm) repo.
+* **Quantization slightly degrades model performance.** The default quantization method in `mlx-vlm` is a round to nearest (RTN) technique. We find for longer generations on device such as extracting many details from sunscreen bottles, the model begins to create an endless loop. This is not the case for the same images when running in `torch.bfloat16`. Future works would likely explore learned quantization methods such as those mentioned in [`LEARNED_QUANTS.md`](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LEARNED_QUANTS.md) in the [`mlx-lm`](https://github.com/ml-explore/mlx-lm) repo.
 * **Bringing Sunny to Android.** Right now, Sunny is iOS only (this is where our team's skillset is). Future work would focus on expanding it to Android as well. On-device deployment for Android could use a similar workflow to [Google's AI Edge Gallery](https://github.com/google-ai-edge/gallery) as well as leverage [LiteRT-LM](https://github.com/google-ai-edge/LiteRT-LM) for deployment.
 * **Speeding up the vision encoder.** To improve prefill speeds and TTFT (time to first token), we’d like to explore using a different vision encoder such as [MobileNetV5](https://huggingface.co/timm/mobilenetv5_300m.gemma3n) (used in Gemma-3n) which enables better on-device hardware usage compared to SigLIP. MobileNetV5 can be run entirely on the neural engine (where as SigLIP uses much of the GPU via MLX). Future works would involve potentially replacing the [MedSigLIP](https://developers.google.com/health-ai-developer-foundations/medsiglip) vision encoder with MobileNetV5, however, this would likely require a significant retraining on medical-related data.
 * **Increase data for fine-tuning.** Our fine-tuning dataset only spans ~1.1k samples with a Gemini 3 Flash teacher. Future works would largely increase this dataset size as well as get official inputs from professional dermatologists to guide the model. 
