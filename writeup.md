@@ -44,9 +44,12 @@ In 2023, combined deaths from melanoma and keratinocyte cancers totalled an esti
 
 A tragic outcome of the sun Australians love so much.
 
-In 2023–24, skin cancer collectively (melanoma and keratinocyte cancers) cost the Australian healthcare system approximately $2.4 billion.
+In 2023–24, skin cancer collectively (melanoma and non-melanoma/keratinocyte cancers) cost the Australian healthcare system approximately $2.47 billion.
 
-TK image 00 - cost of skin cancer
+![A stacked horizontal bar chart from the AIHW showing Australia's total health expenditure by cancer type. The bars are segmented by expenditure area: Hospitals, Primary health care, and Referred medical services. Green arrows and text overlays have been added to the graphic to highlight skin cancer costs specifically. An arrow points to the 'Non-melanoma skin cancer' bar—which is the third highest cost overall—with the text '$1,872M'. Another arrow points further down to the 'Melanoma of the skin' bar with the text '$596M'. Text between these two highlighted figures reads 'Total = $2.47B'.](./images/00-cost-of-skin-cancer-in-australia-2023-2024.png)
+
+*Australian expenditure on Burden of Disease conditions by area of expenditure and state, 2023–24.*
+*Source: Figure 11 via [aihw.gov.au](https://www.aihw.gov.au/reports/health-welfare-expenditure/health-system-spending-disease-injury-aus-2023-24/contents/spending-on-disease-by-abod-conditions)*
 
 With melanoma treatment accounting for $596 million [^6] and keratinocyte skin cancers costing $1.87 billion [^7]. Skin cancer is the most expensive cancer to treat in Australia, more than lung, breast, and bowel cancer [^7].
 
@@ -110,13 +113,15 @@ In light of this, our goals are:
 If successful, this will see*:
 
 - **~$11 million in healthcare cost savings per year** — driven by the 60× cost gap between early and late-stage treatment for melanoma.
-    - Based on moving 175 cases from late (Stage III/IV,  $37,729 to $100,725/year) to early (Stage I, $1,681/year). 
+    - Based on moving 175 cases from late (Stage III/IV,  $37,729 to $100,725/year) to early (Stage I, $1,681/year).
 - **~83 Australian lives saved per year** — roughly 1-2 lives saved every week.
     - Assumed on late stage cases taking on the early stage survival profile. 
 
-\* **Note:** These numbers are estimates and would require further research to be backed up correctly. While Sunny is compatiable with any skin cancer, these are focused on melanoma where there is more data available. Numbers would likely increase with keratinocyte cancer data.
+![A dark-themed infographic illustrating the impact of "Sunny". A legend shows white bars represent "Before Sunny" and orange bars represent "After Sunny". Two bar charts show: "Percentage of Australian's performing yearly SSE's" increases from 26% to 50% (marked with a green 2x arrow), and "Percentage of skin cancer cases treated at Stage I or earlier" increases from 78% to 93.6% (marked with a green +20% arrow). On the right, under "Impact," it states $11M saved per year and 83 lives saved per year.](images/02-sunny-impact-numbers.png)
 
-TK image 02 - before and after Sunny impact potential
+*Before and after Sunny impact. Sunny's goal is to increase the number of Australian's performing yearly self-skin-examinations (SSE's) and in turn increase the liklihood of catching skin cancer early, resulting in earlier more cost effective treatments and better mortality outcomes.*
+
+\****Note:** These numbers are estimates and would require further research to be backed up correctly. While Sunny is compatiable with any skin cancer, these are focused on melanoma where there is more data available. Numbers would likely increase with keratinocyte cancer data.*
 
 ## Overall Solution 
 
@@ -150,9 +155,11 @@ We also collect 100 images of the front and back of sunscreen bottles for struct
 
 Since MedGemma-1.5 already has a significant latent representation of skin and text-based images, the fine-tuning is specifically to get it to extract structured data with a much smaller input prompt.
 
-For example, we use the “skin extract” (token count = 4) prompt rather than a much larger structured data extraction prompt (token count = 249).
+For example, we use the `“skin extract”` (token count = 3) prompt rather than a much larger structured data extraction prompt (token count = 249).
 
-TK image 04 - token counts for different prompts
+!['A diagram illustrating how the MedGemma Tokenizer converts different prompt lengths into token arrays. On the left, a brief variable SKIN_EXTRACT_PROMPT_SHORT containing just the text "skin extract" passes through the tokenizer, resulting in an array of three numbers and a "Short prompt token count: 3". On the right, SKIN_EXTRACT_PROMPT_LONG contains a highly detailed multi-line instruction set including a role, task, guidelines, and a JSON extraction schema for analyzing skin lesions. Passing this through the tokenizer yields a much larger array of numbers and a "Long prompt token count: 248"'](./images/04-short-vs-long-token-inputs.png)
+
+*Comparison of token counts for short versus long(er) input prompts to perform the same goal task. Long prompt token IDs shortened for brevity.*
 
 Why a small input prompt?
 
