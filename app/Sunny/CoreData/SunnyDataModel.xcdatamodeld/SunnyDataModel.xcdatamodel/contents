@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24512" systemVersion="25D125" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDBodyPartStatus" representedClassName="CDBodyPartStatus" syncable="YES">
+        <attribute name="bodyPart" attributeType="String"/>
+        <attribute name="lastScanned" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="photoCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="scanStatus" attributeType="String"/>
+        <attribute name="subPart" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDSkinAnalysis" representedClassName="CDSkinAnalysis" syncable="YES">
+        <attribute name="borders" attributeType="String"/>
+        <attribute name="color" attributeType="String"/>
+        <attribute name="lesionType" attributeType="String"/>
+        <attribute name="summary" attributeType="String"/>
+        <attribute name="symmetry" attributeType="String"/>
+        <attribute name="texture" attributeType="String"/>
+        <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSkinLesionRecord" inverseName="analysis" inverseEntity="CDSkinLesionRecord"/>
+    </entity>
+    <entity name="CDSkinLesionRecord" representedClassName="CDSkinLesionRecord" syncable="YES">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="imagePath" attributeType="String"/>
+        <attribute name="latency" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" attributeType="String"/>
+        <relationship name="analysis" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDSkinAnalysis" inverseName="record" inverseEntity="CDSkinAnalysis"/>
+        <relationship name="spot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSkinSpot" inverseName="analysisRecord" inverseEntity="CDSkinSpot"/>
+    </entity>
+    <entity name="CDSkinSpot" representedClassName="CDSkinSpot" syncable="YES">
+        <attribute name="bodyPart" attributeType="String"/>
+        <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastModified" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="subPart" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="analysisRecord" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDSkinLesionRecord" inverseName="spot" inverseEntity="CDSkinLesionRecord"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDSkinSpotPhoto" inverseName="spot" inverseEntity="CDSkinSpotPhoto"/>
+    </entity>
+    <entity name="CDSkinSpotPhoto" representedClassName="CDSkinSpotPhoto" syncable="YES">
+        <attribute name="dateTaken" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imagePath" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <relationship name="spot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSkinSpot" inverseName="photos" inverseEntity="CDSkinSpot"/>
+    </entity>
+    <entity name="CDSkinReport" representedClassName="CDSkinReport" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="reportId" attributeType="String"/>
+        <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="pdfPath" attributeType="String"/>
+        <attribute name="filterBodyPart" optional="YES" attributeType="String"/>
+        <attribute name="dateRangeStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateRangeEnd" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="totalPhotos" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalScans" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+</model>
