@@ -1,6 +1,6 @@
 # Sunny - Skin Tracking App
 
-**Goal:** Enter [MedGemma Impact Challenge Kaggle competition](https://www.kaggle.com/competitions/med-gemma-impact-challenge) with Sunny, an app designed to use MedGemma-1.5 to help with skin tracking for possible prevention of skin cancer (prevention is the best cure).
+Code and materials for Sunny, our entry into the [MedGemma Impact Challenge Kaggle competition](https://www.kaggle.com/competitions/med-gemma-impact-challenge), an app powered by MedGemma-1.5 to help with skin health tracking.
 
 ## Overview
 
@@ -14,15 +14,16 @@ Sunny aims to fill the gap of a lacking nationwide screening solution in Austral
 
 The intention of Sunny is to encourage more people to self-skin examine on a regular (e.g. yearly) basis. This means potentially discovering skin cancers earlier resulting in earlier treatment and in turn saving on costs and improving mortality rates.
 
-TK image - image of Sunny working
+TK image - header image of Sunny working
 
 ## TK - Resources
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| TK - Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | TK |
+| Sunny iOS TestFlight App (coming soon) | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | (coming soon, pending App Store approval) |
 | TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
-| TK - Video | Video overview of the Sunny project. | TK |
+| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/LbXcC5eKesk) |
+| Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
 | Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
 | Sunny-MedGemma-PyTorch | Fine-tuned MedGemma specifically for Sunny's use case of extracting data from skin and sunscreen images. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune) |
@@ -50,18 +51,6 @@ MedGemma integrates as a writer for generating descriptions of images. These cou
 Crucially, MedGemma is not providing a diagnosis, more so acting as an optional informed helper.
 
 Extension: MedASR could later be integrated to allow voice-to-text notes for tracking or report discussing steps. For example, MedASR could transcribe a discussion between a patient and a dermatologist about their current review (the Review tab could have a voice recording feature which saves audio and attaches it to a particular review).
-
-## Video ideas
-
-There is a required 3 minute video to be submitted alongside the code and writeup materials.
-
-Make a "before and after" Sunny.
-
-For the video, my idea so far is: 
-
-* Minute 1 - Introduction to the problem - this could be interviewing strangers with questions related to skin cancer to frame the problem
-* Minute 2 - Discussing current landscape with healthcare professional 
-* Minute 3 - Benefits and features of Sunny and how it addresses the problem and is a step in the right direction
 
 ### Comparison
 
@@ -138,13 +127,16 @@ hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemm
 
 ## Next
 
-* IN PROGRESS: Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
-    * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
-* IN PROGRESS: Start on `writeup.md` following Kaggle recommended structure.
-* Read: Australian Institute of Health and Welfare: [Health system spending on disease and injury in Australia 2023–24](https://www.aihw.gov.au/reports/health-welfare-expenditure/health-system-spending-disease-injury-aus-2023-24/contents/spending-on-disease-by-abod-conditions)
+* Prepare all materials for Kaggle submission, make all private repos public and ensure links work. Add writeup.md to Kaggle so it looks nice. Always important to make sure it looks nice.
 * Evals: Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
     * This will be good to demo the fine-tuned model vs the non-fine-tuned model.
-* Read [*Economic evaluation of future skin cancer prevention in Australia*](https://pubmed.ncbi.nlm.nih.gov/28131778/)
+* ✅ Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
+    * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
+    * Done - App is ready for submission. Could it be improved? Yes, of course, but we have a deadline to make!
+* ✅ Read [*Economic evaluation of future skin cancer prevention in Australia*](https://pubmed.ncbi.nlm.nih.gov/28131778/)
+* ✅ Start on `writeup.md` following Kaggle recommended structure.
+    * Done - Writeup is finished! A few final touches to prepare for Kaggle submssion but it is mostly complete.
+* ✅ Read: Australian Institute of Health and Welfare: [Health system spending on disease and injury in Australia 2023–24](https://www.aihw.gov.au/reports/health-welfare-expenditure/health-system-spending-disease-injury-aus-2023-24/contents/spending-on-disease-by-abod-conditions)
 * ✅ Get skin check in real life and compare it to before Sunny and after Sunny.
     * Done - Doctor mentioned: "Once a year skin checkup is good or anytime you notice a spot of concern, after all, you are the one who see's your skin the most." Also found a spot on my left toes I did not know about, said "You can take a photo of it yourself and check on it in a year but for now, it looks okay." This is the exact workflow Sunny is looking to accommodate. 
 * ✅ Idea: Shorten the extract for the sunscreen extract? Less tokens to generate = less chance for errors.
@@ -157,6 +149,13 @@ hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemm
     * Done - reached out to 3x experts/doctors so far but have yet to hear back, if this doesn't happen we may benchmark it and try another route 
 
 ## Log
+
+* **23 Feb 2026** - Video edited + posted! (on private for now).
+    * Tomorrow going to tidy up everything ready for submission! Going to make all of the private resources public and make sure everything is accessible and open-source.
+
+* **22 Feb 2026** - Writing script + shooting video for submission. All footage collected, will edit and collate it tomorrow.
+    * Added all application code to `app`.
+    * App has been submitted to Apple TestFlight, waiting on approval so we can invite people to try the demo app. 
 
 * **21 Feb 2026** - Adding images and demos to writeup.md. Draft is largely done and ready for final checks. Once app is completed, will add those images.
     * Going to write a script later for shooting a video, aim is for 2-2.5 minutes.

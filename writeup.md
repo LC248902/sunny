@@ -15,9 +15,9 @@ Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin healt
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| TK - Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | TK |
+| Sunny iOS TestFlight App (coming soon) | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | (coming soon, pending App Store approval) |
 | TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
-| TK - Video | Video overview of the Sunny project. | TK |
+| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/LbXcC5eKesk) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
 | Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
@@ -89,7 +89,7 @@ Our primary user is an Australian adult aged 30–70 who is aware of skin cancer
 
 Sunny transforms a vague "perform self-skin examinations" recommendation into a structured and repeatable full-body self-skin examination habit with trackable progress.
 
-TK image 01 - sunny workflow in app (what does using it)
+TK image 01 - sunny workflow in app (what does using it do? + architecture overview)
 
 ## Impact Potential
 
