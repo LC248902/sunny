@@ -16,7 +16,7 @@ Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin healt
 | Resource | Description | Link |
 |----------|-------------|------|
 | Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. **Note:** All data is private and stays on the device Sunny is being used. | [Link](https://testflight.apple.com/join/HeCwNNGA) |
-| TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
+| Writeup on Kaggle | The official Kaggle submission Writeup (same text as here). | [Link](https://www.kaggle.com/competitions/med-gemma-impact-challenge/writeups/sunny-private-skin-health-tracker) |
 | Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/KVxzyWurDQQ) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
