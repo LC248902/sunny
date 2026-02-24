@@ -16,7 +16,7 @@ The intention of Sunny is to encourage more people to self-skin examine on a reg
 
 ![](./images/01-sunny-workflow-on-device.png)
 
-## TK - Resources
+## Resources
 
 | Resource | Description | Link |
 |----------|-------------|------|
