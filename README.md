@@ -21,7 +21,7 @@ The intention of Sunny is to encourage more people to self-skin examine on a reg
 | Resource | Description | Link |
 |----------|-------------|------|
 | Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. **Note:** All data is private and stays on the device Sunny is being used. | [Link](https://testflight.apple.com/join/HeCwNNGA) |
-| TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
+| Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough on Kaggle. | [Link](https://kaggle.com/competitions/med-gemma-impact-challenge/writeups/sunny-private-skin-health-tracker) |
 | Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/KVxzyWurDQQ) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
@@ -137,6 +137,8 @@ All application code is available in the `app/` directory. This can be run local
     * Done - reached out to 3x experts/doctors so far but have yet to hear back, if this doesn't happen we may benchmark it and try another route 
 
 ## Log
+
+* **24 Feb 2026** - Made all resources public and submitted writeup + video + code to Kaggle!
 
 * **23 Feb 2026** - Video edited + posted! (on private for now).
     * Tomorrow going to tidy up everything ready for submission! Going to make all of the private resources public and make sure everything is accessible and open-source.
