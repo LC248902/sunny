@@ -4,12 +4,12 @@
 
 Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin health over time.
 
-![](./images/header-sunny-overview.png)
+![](./images/header-image-sunny-overview-demo.png)
 
 ## Team
 
 * [Daniel Bourke](https://www.mrdbourke.com/) (@mrdbourke) — Machine Learning Engineer, handled fine-tuning of MedGemma, dataset creation and conversion steps to enable the model to run on-device.
-* Joshua Bourke — iOS Engineer, handled app creation and model integration to run on-device.
+* [Joshua Bourke](https://www.joshbourke.com) (@joshbourke) — iOS Engineer, handled app creation and model integration to run on-device.
 
 ## Resources
 
@@ -17,7 +17,7 @@ Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin healt
 |----------|-------------|------|
 | Sunny iOS TestFlight App (coming soon) | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | (coming soon, pending App Store approval) |
 | TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
-| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/LbXcC5eKesk) |
+| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/KVxzyWurDQQ) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
 | Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
@@ -89,7 +89,9 @@ Our primary user is an Australian adult aged 30–70 who is aware of skin cancer
 
 Sunny transforms a vague "perform self-skin examinations" recommendation into a structured and repeatable full-body self-skin examination habit with trackable progress.
 
-TK image 01 - sunny workflow in app (what does using it do? + architecture overview)
+![A diagram illustrating a machine learning workflow for skin analysis. On the left, the 'Input (image + text)' section shows a 'Photo of skin' featuring a small red lesion, combined with the text prompt '+ skin extract'. Above this are a sparkle icon, a Hugging Face emoji, and the word 'Datasets'. An arrow points to the center processing phase, labeled 'Sunny-MedGemma', featuring a cartoon quokka wearing a sun hat and sunglasses next to the 'MedGemma' logo, alongside Hugging Face and 'TRL' logos. The workflow arrow continues to the right, leading to the 'Output (JSON)' displayed on a smartphone. The phone screen shows an app interface reviewing a skin scan, displaying a photo of a mole and a 'Sunny Analysis' with extracted text details like 'Lesion Type' and 'Colour'. Above the phone are a Hugging Face emoji, the Swift logo, and the 'MLX' logo.](./images/01-sunny-workflow-on-device.png)
+
+*Sunny's dataset is ~1100 images sampled from ISIC-2024 and real-life sunscreen photos (see the [data card](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) for more). Labels are generated using `gemini-3-flash` as a teacher and then MedGemma-1.5-4B is fine-tuned using Hugging Face's [TRL library](https://github.com/huggingface/trl) to reproduce these in a supervised fine-tuned (SFT) fashion to create [Sunny-MedGemma](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune). Sunny-MedGemma is then deployed to the Sunny iOS application via [Hugging Face's Swift Transformers](https://github.com/huggingface/swift-transformers) and uses [Apple's MLX framework](https://github.com/ml-explore/mlx-swift-lm) to run natively on-device.*
 
 ## Impact Potential
 
@@ -129,7 +131,9 @@ Sunny is an iOS application which runs a fine-tuned version of MedGemma-1.5-4B c
 
 Sunny gives the user a structured way to perform a full body examination as well as allows them to review and update previously logged skin photographs.
 
-TK image 03 - Sunny app workflow: Front page -> add scan -> body part -> photo -> model -> output save -> report export with metadata 
+![An image showing three side-by-side smartphone screens demonstrating the features of a skin tracking app called Sunny. The left screen is labeled 'Body template to follow' and shows the app's 'Overview' tab. It features a 3D wireframe body model with the chest highlighted in yellow, toggle buttons for 'Front' and 'Back', and statistics showing '2 Photos', '2 Scanned', and '0 Updates'. A progress bar at the bottom indicates 'Body Coverage' is at 33%. The middle screen is labeled 'Review and export scans to reports' and displays the 'Saved Scans' tab. It shows a scrollable list of past skin scans with photo thumbnails, titles, locations, and dates, such as 'Scan - Upper Back' and 'Single Scan - Middle Toe'. The right screen is labeled 'Keep data private' and shows the app's 'Settings' tab. It includes a 'Privacy & Security' section with a 'Face ID Lock' toggle turned on, noting that skin health data never leaves the device. Below this is a section for 'Exported Reports' and an 'About' section, where the 'AI Model' is listed as 'Sunny-MedGemma', highlighted with a green dotted box. A medical disclaimer is visible at the bottom of the settings list.](./images/03-sunny-workflow-app-step-by-step.png)
+
+*Sunny provides a simple interface for performing structured self-skin examinations. For privacy, all inference and storage happens on device. The Sunny-MedGemma model gets downloaded once during onboarding and can be re-used whenever required.*
 
 Due to the sensitive nature of skin photographs, using an API-based model solution was out of the question.
 
