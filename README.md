@@ -1,4 +1,4 @@
-# Sunny - Skin Healthy Tracking App
+# Sunny - Skin Health Tracking App
 
 Code and materials for Sunny, our entry into the [MedGemma Impact Challenge Kaggle competition](https://www.kaggle.com/competitions/med-gemma-impact-challenge), an app powered by MedGemma-1.5 to help with skin health tracking.
 
@@ -115,9 +115,10 @@ All application code is available in the `app/` directory. This can be run local
 
 ## Next
 
-* Prepare all materials for Kaggle submission, make all private repos public and ensure links work. Add writeup.md to Kaggle so it looks nice. Always important to make sure it looks nice.
-* Evals: Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
+* ✅ Evals: Add examples of before and after of fine-tuning the model to see what it looks like when trying to get initial results (always make sure comparisons are in the same quantization)
     * This will be good to demo the fine-tuned model vs the non-fine-tuned model.
+    * Done - These can be seen in the fine-tuning notebook under the "comparison" section
+* ✅ Prepare all materials for Kaggle submission, make all private repos public and ensure links work. Add writeup.md to Kaggle so it looks nice. Always important to make sure it looks nice.
 * ✅ Upgrade the workflow of MedGemma running on iOS, can the app design be cleaner? 
     * Going to fine-tune MedGemma for our specific use case to see if this helps, the base model doesn't quite do what we'd like, prompting is okay but slows down inference quite a lot on device.
     * Done - App is ready for submission. Could it be improved? Yes, of course, but we have a deadline to make!
