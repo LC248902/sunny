@@ -15,7 +15,7 @@ Sunny - an iOS app powered by MedGemma-1.5 to help people track their skin healt
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| Sunny iOS TestFlight App (coming soon) | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | (coming soon, pending App Store approval) |
+| Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. **Note:** All data is private and stays on the device Sunny is being used. | [Link](https://testflight.apple.com/join/HeCwNNGA) |
 | TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
 | Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/KVxzyWurDQQ) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
@@ -213,7 +213,7 @@ Inference for a skin extraction takes 5-6s TFTT (time to first token) and about 
 
 Future work would involve decreasing these inference times through better on-device optimizations such as leveraging CoreML for the vision encoder (similar to [Apple’s FastVLM](https://github.com/apple/ml-fastvlm)).
 
-Our application is available to try out via TestFlight (TK - link to TestFlight) and all of our code is available in the `sunny` GitHub repo.
+Our application is available to try out via [TestFlight](https://testflight.apple.com/join/HeCwNNGA) and all of our code is available in the `sunny` GitHub repo.
 
 ## Limitations and Future Work
 

@@ -1,4 +1,4 @@
-# Sunny - Skin Tracking App
+# Sunny - Skin Healthy Tracking App
 
 Code and materials for Sunny, our entry into the [MedGemma Impact Challenge Kaggle competition](https://www.kaggle.com/competitions/med-gemma-impact-challenge), an app powered by MedGemma-1.5 to help with skin health tracking.
 
@@ -14,51 +14,35 @@ Sunny aims to fill the gap of a lacking nationwide screening solution in Austral
 
 The intention of Sunny is to encourage more people to self-skin examine on a regular (e.g. yearly) basis. This means potentially discovering skin cancers earlier resulting in earlier treatment and in turn saving on costs and improving mortality rates.
 
-TK image - header image of Sunny working
+![](./images/01-sunny-workflow-on-device.png)
 
 ## TK - Resources
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| Sunny iOS TestFlight App (coming soon) | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. | (coming soon, pending App Store approval) |
+| Sunny iOS TestFlight App | iOS app showcasing the use of the Sunny-MedGemma model running natively for helping extract information from skin and sunscreen photos. **Note:** All data is private and stays on the device Sunny is being used. | [Link](https://testflight.apple.com/join/HeCwNNGA) |
 | TK - Writeup | Full writeup of project including problem definition, impact discussion and solution walkthrough. | TK |
-| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/LbXcC5eKesk) |
+| Video | 3 minute video overview of the Sunny project. | [Link](https://youtu.be/KVxzyWurDQQ) |
 | Code | Full code and resources on GitHub. | [Link](https://github.com/mrdbourke/sunny) | 
 | Sunny MedGemma Fine-Tuning Notebook | Notebook to fine-tune MedGemma to extract structured data from skin and sunscreen images. **Note:** Best viewed in Google Colab as GitHub rendering fails to show images. | [Link](https://github.com/mrdbourke/sunny/blob/main/sunny_MedGemma_fine_tuning.ipynb) |
 | Sunny Dataset | Dataset for fine-tuning MedGemma for skin and sunscreen extraction. | [Link](https://huggingface.co/datasets/mrdbourke/sunny-skin-and-sunscreen-extract-1k) |
 | Sunny-MedGemma-PyTorch | Fine-tuned MedGemma specifically for Sunny's use case of extracting data from skin and sunscreen images. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune) |
 | Sunny-MedGemma-MLX | Fine-tuned MedGemma converted to MLX for deployment on iOS devices. | [Link](https://huggingface.co/mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit) |
 
-## Notes
-
-* **Prompt order matters** - The Sunny-MedGemma has been trained in the format `<image>` + `<text>` → `<text>`. The image must come **before** the text in the prompt. This goes for the PyTorch version of the model as well as the MLX verison of the model. Not using this order will likely result in undesirable outputs.
-* **No hard negatives** - The model has been trained on sunscreen and skin images, however, it has not been trained on images to refuse. For example, if you upload a photo of a dog, the model will still produce an output. A future fine-tuning run would introduce hard negative samples to guide the model to know what kind of images to not predict anything on.
-
-## App Layout
-
-There will be three tabs: Track, Review, Map.
-
-Track allows someone to go through a step-by-step body scan where people can take photos and log them to the phone. Each photo is tied to a specific body part for easy referencing later.
-
-Review allows someone to review the photos they've taken in the past and optionally add an updated photo (e.g. a more recent photo to an existing log) as well as export a report of all tracked items (this can be shared with a dermatologist).
-
-Map shows a map overview of dermatologists nearby for easy contact and directional information.
-
 ## MedGemma Integration
 
 MedGemma integrates as a writer for generating descriptions of images. These could be reviewed by a patient or dermatologist for further inspection.
 
-Crucially, MedGemma is not providing a diagnosis, more so acting as an optional informed helper.
+Crucially, MedGemma is not providing a diagnosis, more so acting as an informed scribe.
 
 Extension: MedASR could later be integrated to allow voice-to-text notes for tracking or report discussing steps. For example, MedASR could transcribe a discussion between a patient and a dermatologist about their current review (the Review tab could have a voice recording feature which saves audio and attaches it to a particular review).
 
-### Comparison
-
-* Compare a skin check with Sunny and without Sunny.
-    * With Sunny: structured, step by step, everything in one place
-    * Without Sunny: ad hoc, "did I do this place before?", "what did this region look like last time?"
-
 ## Usage
+
+### Notes
+
+* **Prompt order matters** - The Sunny-MedGemma has been trained in the format `<image>` + `<text>` → `<text>`. The image must come **before** the text in the prompt. This goes for the PyTorch version of the model as well as the MLX verison of the model. Not using this order will likely result in undesirable outputs.
+* **No hard negatives** - The model has been trained on sunscreen and skin images, however, it has not been trained on images to refuse. For example, if you upload a photo of a dog, the model will still produce an output. A future fine-tuning run would introduce hard negative samples to guide the model to know what kind of images to not predict anything on.
 
 ### Fine-tuning MedGemma
 
@@ -124,6 +108,10 @@ Or for the MLX version:
 ```
 hf upload mrdbourke/sunny-medgemma-1.5-4b-finetune-mlx-4bit extras/sunny_medgemma_mlx_readme.md README.md --repo-type model
 ```
+
+### Application code
+
+All application code is available in the `app/` directory. This can be run locally via Xcode.
 
 ## Next
 
