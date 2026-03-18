@@ -2,6 +2,11 @@
 
 Code and materials for Sunny, our entry into the [MedGemma Impact Challenge Kaggle competition](https://www.kaggle.com/competitions/med-gemma-impact-challenge), an app powered by MedGemma-1.5 to help with skin health tracking.
 
+## Team
+
+* Daniel Bourke ([@mrdbourke](https://github.com/mrdbourke)) - Constructed the fine-tuning dataset, fine-tuned MedGemma-1.5 for skin extraction, prepared the Sunny-MedGemma model for deployment to iOS.
+* Joshua Bourke ([@joshuabourke](https://github.com/joshuabourke)) - Created the Sunny iOS app, integrated the MLX format Sunny-MedGemma model to run natively on device.
+
 ## Overview
 
 Sunny's goal: Turn personal skin tracking from a vague intentional to an actionable habit.
